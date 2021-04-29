@@ -19,7 +19,7 @@ namespace StarterGame
 
         public Room CreateWorld()
         {
-            Room outside = new Room("outside the main entrance of the university");
+            Room outside = new Room("outside the main entrance of the dungeon");
             Room cctparking = new Room("in the parking lot at CCT");
             Room boulevard = new Room("on the boulevard");
             Room universityParking = new Room("in the parking lot at University Hall");
