@@ -20,33 +20,17 @@ namespace StarterGame
             }
         }
 
-        private IItem _item;
+        private IItem _ground;
 
         public void Drop(IItem item)
         {
-            _item = item;
+            _ground.AddItem(item);
         }
 
         public IItem Pickup(string itemName)
         {
-            if (_item != null)
-            {
-                if (itemName.Equals(itemName))
-                {
-                    IItem tempItem = _item;
-                    _item = null;
-                    return tempItem;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-            
+            IItem item = _ground.RemoveItem(itemName);
+            return item;
         }
 
         public Room() : this("No Tag")
@@ -56,6 +40,7 @@ namespace StarterGame
 
         public Room(string tag)
         {
+            _ground = new ItemContainer("ground", 0f, 0, "items currently on the ground around you");
             exits = new Dictionary<string, Room>();
             this.Tag = tag;
         }
@@ -84,14 +69,14 @@ namespace StarterGame
             return exitNames;
         }
 
-        public string GetItem()
+        public string GetItems()
         {
-            return "Items: " + (_item == null ? "" : _item.Name);
+            return _ground.Description;
         }
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\n ^^^" + GetItem();
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\n ^^^" + GetItems();
         }
     }
 }

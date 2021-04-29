@@ -58,6 +58,14 @@ namespace StarterGame
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
 
+            IItem itemContainer = new ItemContainer("chest");
+            IItem itemInContainer = new Item("dagger", 6.1f, 3.9, "a basic dagger");
+            itemContainer.AddItem(itemInContainer);
+            itemInContainer = new Item("shield", 10f, 8.6, "a shield for blocking");
+            itemContainer.AddItem(itemInContainer);
+            armory.Drop(itemContainer);
+
+
             return outside;
         }
 

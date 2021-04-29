@@ -4,11 +4,11 @@ using System;
 
 namespace StarterGame
 {
-    public class InspectCommand : Command
+    public class PickupCommand : Command
     {
-        public InspectCommand() : base()
+        public PickupCommand() : base()
         {
-            this.Name = "inspect";
+            this.Name = "pickup";
         }
 
         override
@@ -16,11 +16,11 @@ namespace StarterGame
         {
             if (this.HasSecondWord())
             {
-                player.Inspect(this.SecondWord);
+                player.PickUp(this.SecondWord);
             }
             else
             {
-                player.OutputMessage("\nInspect What?");
+                player.OutputMessage("\nPickup What?");
             }
             return false;
         }

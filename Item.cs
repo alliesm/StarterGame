@@ -9,7 +9,7 @@ namespace StarterGame
         string Name { get; set; }
         float Weight { get; set; }
         double Volume { get; set; }
-        string Description { get; set; }
+        string Description { get; }
         void AddDecorator(IItem decorator);
         bool IsContainer { get; }
         void AddItem(IItem item);
@@ -45,7 +45,8 @@ namespace StarterGame
                 _volume = value;
             }
         }
-        public string Description { get; set; }
+        private string _description;
+        public string Description { get { return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + _description; } }
 
         private IItem _decorator;
 
@@ -64,7 +65,7 @@ namespace StarterGame
             Name = name;
             Weight = weight;
             Volume = volume;
-            Description = "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + description;
+            _description = description;
             _decorator = null;
         }
 
@@ -78,7 +79,6 @@ namespace StarterGame
             {
                 _decorator.AddDecorator(decorator);
             }
-            Description = "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume;
         }
 
         public void AddItem(IItem item)
@@ -104,7 +104,12 @@ namespace StarterGame
         {
             get
             {
-                return _weight + (_decorator != null ? _decorator.Weight : 0);
+                float containedweight = 0;
+                foreach(IItem item in _container.Values)
+                {
+                    containedweight += item.Weight;
+                }
+                return containedweight + _weight + (_decorator != null ? _decorator.Weight : 0);
             }
             set
             {
@@ -123,7 +128,19 @@ namespace StarterGame
                 _volume = value;
             }
         }
-        public string Description { get; set; }
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                string itemList = "Items: ";
+                foreach(IItem item in _container.Values)
+                {
+                    itemList += "\n " + item.Description;
+                }
+                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + _description + "\n" + itemList;
+            }
+        }
 
         public ItemContainer() : this("container") { }
 
@@ -135,12 +152,12 @@ namespace StarterGame
         //Designated constructor
         public ItemContainer(String name, float weight, double volume, string description)
         {
+            _container = new Dictionary<string, IItem>();
             Name = name;
             Weight = weight;
             Volume = volume;
-            Description = "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + description;
+            _description = description;
             _decorator = null;
-            _container = new Dictionary<string, IItem>();
         }
 
         private IItem _decorator;
@@ -154,7 +171,6 @@ namespace StarterGame
             {
                 _decorator.AddDecorator(decorator);
             }
-            Description = "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume;
         }
 
         public bool IsContainer { get { return true; } }
@@ -165,7 +181,9 @@ namespace StarterGame
         }
         public IItem RemoveItem(string itemName)
         {
-            return null;
+            IItem item = null;
+            _container.Remove(itemName, out item);
+            return item;
         }
         
     }
