@@ -58,7 +58,7 @@ namespace StarterGame
         {
             Name = name;
             Weight = weight;
-            Volume = Volume;
+            Volume = volume;
             Description = "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + description;
             _decorator = null;
         }
