@@ -19,44 +19,41 @@ namespace StarterGame
 
         public Room CreateWorld()
         {
-            Room outside = new Room("outside the main entrance of the university");
-            Room cctparking = new Room("in the parking lot at CCT");
-            Room boulevard = new Room("on the boulevard");
-            Room universityParking = new Room("in the parking lot at University Hall");
-            Room parkingDeck = new Room("in the parking deck");
-            Room cct = new Room("in the CCT building");
-            Room theGreen = new Room("in the green in from of Schuster Center");
-            Room universityHall = new Room("in University Hall");
-            Room schuster = new Room("in the Schuster Center");
+            Room outside = new Room("outside the main entrance of the dungeon");
+            Room infirmary = new Room("in the infirmary");
+            Room mainCorridor = new Room("in the main corridor");
+            Room garrison = new Room("in the garrison");
+            Room armory = new Room("in the armory");
+            Room library = new Room("in the library");
+            Room tradingRoom = new Room("in the blacksmithing area");
+            Room garden = new Room("in the garden");
+            Room finalRoom = new Room("in the lair of ....");
 
-            outside.SetExit("west", boulevard);
+            outside.SetExit("east", mainCorridor);
 
-            boulevard.SetExit("east", outside);
-            boulevard.SetExit("south", cctparking);
-            boulevard.SetExit("west", theGreen);
-            boulevard.SetExit("north", universityParking);
+            mainCorridor.SetExit("east", garden);
+            mainCorridor.SetExit("south", garrison);
+            mainCorridor.SetExit("west", outside);
+            mainCorridor.SetExit("north", tradingRoom);
 
-            cctparking.SetExit("west", cct);
-            cctparking.SetExit("north", boulevard);
+            tradingRoom.SetExit("south", mainCorridor);
 
-            cct.SetExit("east", cctparking);
-            cct.SetExit("north", schuster);
+            garrison.SetExit("south", armory);
+            garrison.SetExit("north", mainCorridor);
 
-            schuster.SetExit("south", cct);
-            schuster.SetExit("north", universityHall);
-            schuster.SetExit("east", theGreen);
+            garden.SetExit("south", infirmary);
+            garden.SetExit("north", library);
+            garden.SetExit("west", mainCorridor);
+            garden.SetExit("east", finalRoom);
 
-            theGreen.SetExit("west", schuster);
-            theGreen.SetExit("east", boulevard);
+            library.SetExit("south", garden);
+            
 
-            universityHall.SetExit("south", schuster);
-            universityHall.SetExit("east", universityParking);
+            infirmary.SetExit("north", garden);
+            
 
-            universityParking.SetExit("south", boulevard);
-            universityParking.SetExit("west", universityHall);
-            universityParking.SetExit("north", parkingDeck);
-
-            parkingDeck.SetExit("south", universityParking);
+            finalRoom.SetExit("west", garden);
+            
 
             return outside;
         }
