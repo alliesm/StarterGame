@@ -26,7 +26,7 @@ namespace StarterGame
             }
             else
             {
-                player.OutputMessage("\nYou are lost. You are alone. You wander around the university, \n\nYour available commands are " + words.Description());
+                player.OutputMessage("\nYou're goal is to defeat the ...beast?... and rescue the princess, stay focused. \n\nYour available commands are " + words.Description());
             }
             return false;
         }

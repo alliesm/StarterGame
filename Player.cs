@@ -38,6 +38,20 @@ namespace StarterGame
             }
         }
 
+        public void Inspect(string itemName)
+        {
+            IItem item = CurrentRoom.Pickup(itemName);
+            if(item != null)
+            {
+                OutputMessage("Current item:  " + item.Description);
+                CurrentRoom.Drop(item);
+            }
+            else
+            {
+                OutputMessage("The item '" + itemName + "' is not in the room.");
+            }
+        }
+
         public void OutputMessage(string message)
         {
             Console.WriteLine(message);

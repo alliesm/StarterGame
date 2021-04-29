@@ -48,12 +48,15 @@ namespace StarterGame
 
             library.SetExit("south", garden);
             
-
             infirmary.SetExit("north", garden);
             
-
             finalRoom.SetExit("west", garden);
-            
+
+            //Puts items in world
+            IItem sword = new Item("sword", 5.3f, 6.4, "this is a broken knight's longsword sword");
+            IItem decorator = new Item("blade", 9.7f, 8.6, "the blade to the broken sword");
+            sword.addDecorator(decorator);
+            mainCorridor.Drop(sword);
 
             return outside;
         }

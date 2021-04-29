@@ -20,6 +20,35 @@ namespace StarterGame
             }
         }
 
+        private IItem _item;
+
+        public void Drop(IItem item)
+        {
+            _item = item;
+        }
+
+        public IItem Pickup(string itemName)
+        {
+            if (_item != null)
+            {
+                if (itemName.Equals(itemName))
+                {
+                    IItem tempItem = _item;
+                    _item = null;
+                    return tempItem;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+
         public Room() : this("No Tag")
         {
 
@@ -55,9 +84,14 @@ namespace StarterGame
             return exitNames;
         }
 
+        public string GetItem()
+        {
+            return "Items: " + (_item == null ? "" : _item.Name);
+        }
+
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits();
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\n ^^^" + GetItem();
         }
     }
 }
