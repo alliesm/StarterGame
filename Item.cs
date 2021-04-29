@@ -94,11 +94,15 @@ namespace StarterGame
 
 
 
+
     public class ItemContainer : IItem
     {
         private Dictionary<string, IItem> _container;
 
         public string Name { get; set; }
+
+        private int _capacity;
+        public int Capacity { get { return _capacity; } }
         private float _weight;
         public float Weight
         {
@@ -138,7 +142,7 @@ namespace StarterGame
                 {
                     itemList += "\n " + item.Description;
                 }
-                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + _description + "\n" + itemList;
+                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Capacity: " + Capacity + ", " + _description + "\n" + itemList;
             }
         }
 
@@ -148,9 +152,11 @@ namespace StarterGame
 
         public ItemContainer(string name, float weight) : this(name, weight, 45) { }
 
-        public ItemContainer(string name, float weight, double volume) : this(name, weight, volume, "") { }
+        public ItemContainer(string name, float weight, double volume) : this(name, weight, volume, 100) { }
+
+        public ItemContainer(string name, float weight, double volume, int capacity) : this(name, weight, volume, capacity, "") { }
         //Designated constructor
-        public ItemContainer(String name, float weight, double volume, string description)
+        public ItemContainer(string name, float weight, double volume, int capacity, string description)
         {
             _container = new Dictionary<string, IItem>();
             Name = name;
@@ -158,6 +164,7 @@ namespace StarterGame
             Volume = volume;
             _description = description;
             _decorator = null;
+            _capacity = capacity;
         }
 
         private IItem _decorator;
@@ -174,6 +181,31 @@ namespace StarterGame
         }
 
         public bool IsContainer { get { return true; } }
+
+        //checks for space in container
+        public bool SpaceInContainer(IItem item)
+        {
+            if (this.Weight + item.Weight > _capacity)
+            {
+                Console.WriteLine("There isn't enough space");
+                return false;
+            }
+            return true;
+        }
+
+        public float weightInContainer()
+        {
+            float temp = 0;
+            Dictionary<string, IItem>.ValueCollection items = _container.Values;
+            foreach(IItem item in _container.Values)
+            {
+                foreach(IItem item1 in items)
+                {
+                    temp += item.Weight;
+                }
+            }
+            return temp;
+        }
 
         public void AddItem(IItem item)
         {

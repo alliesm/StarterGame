@@ -8,6 +8,7 @@ namespace StarterGame
     {
         private Room _currentRoom = null;
         private IItem _inventory = null;
+
         public Room CurrentRoom
         {
             get
@@ -23,7 +24,7 @@ namespace StarterGame
         public Player(Room room)
         {
             _currentRoom = room;
-            _inventory = new ItemContainer("inventory", 0f, 0, "stores all held items");
+            _inventory = new ItemContainer("inventory", 0f, 0, 50, "stores all held items");
         }
 
         public void WaltTo(string direction)
@@ -40,21 +41,25 @@ namespace StarterGame
             }
         }
 
+        //puts items in inventory
         public void Give(IItem item)
         {
             _inventory.AddItem(item);
         }
 
+        //takes item out inventory
         public IItem Take(string itemName)
         {
             IItem item = _inventory.RemoveItem(itemName);
             return item;
         }
 
+
+
         public void Drop(string itemName)
         {
             IItem item = Take(itemName);
-            if(item != null)
+            if (item != null)
             {
                 CurrentRoom.Drop(item);
                 OutputMessage(itemName + " has been dropped");
@@ -68,13 +73,19 @@ namespace StarterGame
         public void PickUp(string itemName)
         {
             IItem item = CurrentRoom.Pickup(itemName);
-            if(item != null)
+            if (item != null)
             {
                 //check for item weight
-                //if not over capacity give
-                //else put back and send message
-                Give(item);
-                OutputMessage(itemName + " has been picked up");
+                if ()
+                {
+                    OutputMessage("Your inventory is full");
+                    CurrentRoom.Drop(item);
+                }
+                else
+                {
+                    Give(item);
+                    OutputMessage(itemName + " has been picked up");
+                }
             }
             else
             {
@@ -85,7 +96,7 @@ namespace StarterGame
         public void Inspect(string itemName)
         {
             IItem item = CurrentRoom.Pickup(itemName);
-            if(item != null)
+            if (item != null)
             {
                 OutputMessage("Current item:  " + item.Description);
                 CurrentRoom.Drop(item);
