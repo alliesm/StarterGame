@@ -18,7 +18,7 @@ namespace StarterGame
             }
             else
             {
-                player.Bag.Inventory();
+                player.Inventory();
             }
             return false;
         }

@@ -47,25 +47,27 @@ namespace StarterGame
             garden.SetExit("east", finalRoom);
 
             library.SetExit("south", garden);
-            
+
             infirmary.SetExit("north", garden);
-            
+
             finalRoom.SetExit("west", garden);
 
             //Puts items in world
-            IItem sword = new Item("sword", 5.3f, 6.4, "this is a broken knight's longsword sword");
-            IItem decorator = new Item("blade", 9.7f, 8.6, "the blade to the broken sword");
+            IItem sword = new Item("sword", 50f, 6.4, 2, 1, "this is a broken knight's longsword sword");
+            IItem decorator = new Item("blade", 9.7f, 8.6, 3, 2, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
-            
-            IItem dagger = new Item("dagger", 6.1f, 3.9, "a basic dagger");
-            armory.Drop(dagger);
-            IItem shield = new Item("shield", 10f, 8.6, "a shield for blocking");
-            armory.Drop(shield);
 
-            IItem itemContainer = new ItemContainer("lockbox", 1f, 1, "the lockbox that contains the key");
-            IItem itemInContainer = new Item("key", 0f, 0, "the key");
+            //IItem bag = new Bag();
+            //outside.Drop(bag);
+
+            IItem itemContainer = new ItemContainer("chest");
+            IItem itemInContainer = new Item("dagger", 6.1f, 3.9, 5, 10, "a basic dagger");
             itemContainer.AddItem(itemInContainer);
+            itemInContainer = new Item("shield", 10f, 8.6, 10, 20, "a shield for blocking");
+            itemContainer.AddItem(itemInContainer);
+            armory.Drop(itemContainer);
+
 
             return outside;
         }

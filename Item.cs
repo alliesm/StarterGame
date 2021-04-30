@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 
 namespace StarterGame
 {
@@ -10,6 +9,8 @@ namespace StarterGame
         string Name { get; set; }
         float Weight { get; set; }
         double Volume { get; set; }
+        int BuyPrice { get; set; }
+        int SellPrice { get; set; }
         string Description { get; }
         void AddDecorator(IItem decorator);
         bool IsContainer { get; }
@@ -46,8 +47,32 @@ namespace StarterGame
                 _volume = value;
             }
         }
+        private int _buyPrice;
+        public int BuyPrice
+        {
+            get
+            {
+                return _buyPrice + (_decorator != null ? _decorator.BuyPrice : 0);
+            }
+            set
+            {
+                _buyPrice = value;
+            }
+        }
+        private int _sellPrice;
+        public int SellPrice
+        {
+            get
+            {
+                return _sellPrice + (_decorator != null ? _decorator.SellPrice : 0);
+            }
+            set
+            {
+                _sellPrice = value;
+            }
+        }
         private string _description;
-        public string Description { get { return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + " " + _description; } }
+        public string Description { get { return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Buy Price: " + BuyPrice + ", Sell Price: " + SellPrice + ", " + _description; } }
 
         private IItem _decorator;
 
@@ -59,17 +84,25 @@ namespace StarterGame
 
         public Item(string name, float weight) : this(name, weight, 2.0) { }
 
-        public Item(string name, float weight, double volume) : this(name, weight, volume, "") { }
+        public Item(string name, float weight, double volume) : this(name, weight, volume, 10) { }
+
+        public Item(string name, float weight, double volume, int buyPrice) : this(name, weight, volume, buyPrice, 20) { }
+
+        public Item(string name, float weight, double volume, int buyPrice, int sellPrice) : this(name, weight, volume, buyPrice, sellPrice, "") { }
+
         //Designated constructor
-        public Item(String name, float weight, double volume, string description)
+        public Item(String name, float weight, double volume, int buyPrice, int sellPrice, string description)
         {
             Name = name;
             Weight = weight;
             Volume = volume;
             _description = description;
             _decorator = null;
+            BuyPrice = buyPrice;
+            SellPrice = sellPrice;
         }
 
+        //adds decorator to item (combines items)
         public void AddDecorator(IItem decorator)
         {
             if (_decorator == null)
@@ -98,11 +131,14 @@ namespace StarterGame
 
     public class ItemContainer : IItem
     {
-        private Dictionary<string, List<IItem>> _container;
-        public Dictionary<string, List<IItem>> Container { get { return _container; } }
+        private Dictionary<string, IItem> _container;
 
         public string Name { get; set; }
 
+        private int _capacity;
+        public int Capacity { get { return _capacity; } }
+        public int BuyPrice { get; set; }
+        public int SellPrice { get; set; }
         private float _weight;
         public float Weight
         {
@@ -142,7 +178,7 @@ namespace StarterGame
                 {
                     itemList += "\n " + item.Description;
                 }
-                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume +  ", " + _description + "\n" + itemList;
+                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Capacity: " + Capacity + ", Buy Price: " + BuyPrice + ", Sell Price: " + SellPrice + ", " + _description + "\n" + itemList;
             }
         }
 
@@ -152,16 +188,27 @@ namespace StarterGame
 
         public ItemContainer(string name, float weight) : this(name, weight, 45) { }
 
-        public ItemContainer(string name, float weight, double volume) : this(name, weight, volume, "") { }
+        public ItemContainer(string name, float weight, double volume) : this(name, weight, volume, 100) { }
+
+        public ItemContainer(string name, float weight, double volume, int capacity) : this(name, weight, volume, capacity, 0) { }
+
+
+        public ItemContainer(string name, float weight, double volume, int capacity, int buyPrice) : this(name, weight, volume, capacity, buyPrice, 0) { }
+
+
+        public ItemContainer(string name, float weight, double volume, int capacity, int buyPrice, int sellPrice) : this(name, weight, volume, capacity, buyPrice, sellPrice, "") { }
         //Designated constructor
-        public ItemContainer(string name, float weight, double volume, string description)
+        public ItemContainer(string name, float weight, double volume, int capacity, int buyPrice, int sellPrice, string description)
         {
-            _container = new Dictionary<string, List<IItem>>();
+            _container = new Dictionary<string, IItem>();
             Name = name;
             Weight = weight;
             Volume = volume;
             _description = description;
             _decorator = null;
+            _capacity = capacity;
+            BuyPrice = buyPrice;
+            SellPrice = sellPrice;
         }
 
         private IItem _decorator;
@@ -179,51 +226,18 @@ namespace StarterGame
 
         public bool IsContainer { get { return true; } }
 
-        public float weightInContainer()
-        {
-            float temp = 0;
-            Dictionary<string, List<IItem>>.ValueCollection values = _container.Values;
-            foreach (List<IItem> items in _container.Values)
-            {
-                foreach (IItem item in items)
-                {
-                    temp += item.Weight;
-                }
-            }
-            return temp;
-        }
-
+        //adds item to container
         public void AddItem(IItem item)
         {
-            //_container[item.Name] = item;
-            List<IItem> check = null;
-            Container.TryGetValue(item.Name, out check);
-            if (check == null)
-            {
-                Container[item.Name] = new List<IItem>();
-                Container[item.Name].Add(item);
-            }
+            _container[item.Name] = item;
         }
+        //removes item from container
         public IItem RemoveItem(string itemName)
         {
-            List<IItem> check = null;
-            Container.TryGetValue(itemName, out check);
-            if (check != null && check.Count != 0)
-            {
-                IItem temp = check.First();
-                Container[itemName].Remove(temp);
-                if (Container[itemName].Count == 0)
-                {
-                    Container.Remove(itemName);
-                }
-                return temp;
-            }
-            else
-            {
-                Console.WriteLine("This item isn't here");
-                return null;
-            }
-
+            IItem item = null;
+            _container.Remove(itemName, out item);
+            return item;
         }
+
     }
 }

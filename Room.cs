@@ -40,7 +40,7 @@ namespace StarterGame
 
         public Room(string tag)
         {
-            _ground = new ItemContainer("ground", 0f, 0, "items currently on the ground around you");
+            _ground = new ItemContainer("ground", 0f, 0, 0, 0, 0, "items currently on the ground around you");
             exits = new Dictionary<string, Room>();
             this.Tag = tag;
         }

@@ -1,19 +1,19 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 
 namespace StarterGame
 {
     public class Bag : IItem
     {
-        private Dictionary<string, List<IItem>> _container;
-        public Dictionary<string, List<IItem>> Container { get { return _container; } }
+        private Dictionary<string, IItem> _container;
 
         public string Name { get; set; }
 
         private int _capacity;
         public int Capacity { get { return _capacity; } }
+        public int BuyPrice { get; set; }
+        public int SellPrice { get; set; }
         private float _weight;
         public float Weight
         {
@@ -53,29 +53,26 @@ namespace StarterGame
                 {
                     itemList += "\n " + item.Description;
                 }
-                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Capacity: " + Capacity + ", " + _description + "\n" + itemList;
+                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Capacity: " + Capacity + ", Buy Price: " + BuyPrice + ", Sell Price: " + SellPrice + ", " + _description + "\n" + itemList;
             }
         }
 
-        public Bag() : this("bag") { }
+        private Dictionary<string, List<IItem>> _inventory;
+        public Dictionary<string, List<IItem>> Inventory { get { return _inventory; } }
 
-        public Bag(string name) : this(name, 0f) { }
-
-        public Bag(string name, float weight) : this(name, weight, 0) { }
-
-        public Bag(string name, float weight, double volume) : this(name, weight, volume, 50) { }
-
-        public Bag(string name, float weight, double volume, int capacity) : this(name, weight, volume, capacity, "your inventory") { }
         //Designated constructor
-        public Bag(string name, float weight, double volume, int capacity, string description)
+        public Bag()
         {
-            _container = new Dictionary<string, List<IItem>>();
-            Name = name;
-            Weight = weight;
-            Volume = volume;
-            _description = description;
+            _container = new Dictionary<string, IItem>();
+            Name = "bag";
+            Weight = 0;
+            Volume = 0;
+            _description = "the inventory holds all the players items";
             _decorator = null;
-            _capacity = capacity;
+            _capacity = 50;
+            BuyPrice = 0;
+            SellPrice = 0;
+            _inventory = new Dictionary<string, List<IItem>>();
         }
 
         private IItem _decorator;
@@ -93,11 +90,37 @@ namespace StarterGame
 
         public bool IsContainer { get { return true; } }
 
-        public float weightInContainer()
+
+        //Puts items in the Bag
+        public void AddItem(IItem item)
+        {
+            List<IItem> check = null;
+            Inventory.TryGetValue(item.Name, out check);
+            if (check == null)
+            {
+                Inventory[item.Name] = new List<IItem>();
+                Inventory[item.Name].Add(item);
+            }
+            else
+            {
+                Inventory[item.Name].Add(item);
+            }
+        }
+        public IItem RemoveItem(string itemName)
+        {
+            IItem item = null;
+            _container.Remove(itemName, out item);
+            return item;
+        }
+
+
+
+        //Weight of items
+        public float weightInBag()
         {
             float temp = 0;
-            Dictionary<string, List<IItem>>.ValueCollection values = _container.Values;
-            foreach (List<IItem> items in _container.Values)
+            Dictionary<string, List<IItem>>.ValueCollection values = Inventory.Values;
+            foreach (List<IItem> items in values)
             {
                 foreach (IItem item in items)
                 {
@@ -107,50 +130,36 @@ namespace StarterGame
             return temp;
         }
 
-        public void AddItem(IItem item)
+        //Tells if there is room in the bag
+        public bool spaceInBag(IItem item)
         {
-            //_container[item.Name] = item;
-            List<IItem> check = null;
-            Container.TryGetValue(item.Name, out check);
-            if (check == null)
+            if (this.Weight + item.Weight > _capacity)
             {
-                Container[item.Name] = new List<IItem>();
-                Container[item.Name].Add(item);
+                Console.WriteLine("You do not have enough room in your bag.");
+                return false;
             }
-        }
-        public IItem RemoveItem(string itemName)
-        {
-            List<IItem> check = null;
-            Container.TryGetValue(itemName, out check);
-            if (check != null && check.Count != 0)
-            {
-                IItem temp = check.First();
-                Container[itemName].Remove(temp);
-                if (Container[itemName].Count == 0)
-                {
-                    Container.Remove(itemName);
-                }
-                return temp;
-            }
-            else
-            {
-                Console.WriteLine("This item isn't here");
-                return null;
-            }
-
+            return true;
         }
 
-        public string Inventory()
+        //Displays items in the bag
+        public string displayItems()
         {
-            //OutputMessage(_bag.Description);
             string list = "";
-            Dictionary<string, List<IItem>>.ValueCollection values = Container.Values;
-            list += "Inventory Weight: " + weightInContainer();
-            foreach(IItem item in values)
+            Dictionary<string, List<IItem>>.ValueCollection values = Inventory.Values;
+            list += "\nWeight in Bag: " + weightInBag() + "lbs\n\t";
+            foreach (List<IItem> item in values)
             {
-                list += item.Name;
+                list += item.First().Name + ": " + item.Count + "\n\t";
             }
             return list;
+        }
+
+        //Checks if certain item is in bag
+        public bool itemInBag(string item)
+        {
+            List<IItem> check = null;
+            Inventory.TryGetValue(item, out check);
+            return check != null;
         }
     }
 }

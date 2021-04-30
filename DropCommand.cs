@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace StarterGame
+/*namespace StarterGame
 {
     public class DropCommand : Command
     {
@@ -25,4 +25,4 @@ namespace StarterGame
             return false;
         }
     }
-}
+}*/

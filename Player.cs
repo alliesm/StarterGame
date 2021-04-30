@@ -7,9 +7,7 @@ namespace StarterGame
     public class Player
     {
         private Room _currentRoom = null;
-        private Bag _bag;
-        public Bag Bag { get { return _bag; } set { _bag = value; } }
-
+        private IItem _inventory = null;
 
         public Room CurrentRoom
         {
@@ -25,7 +23,8 @@ namespace StarterGame
 
         public Player(Room room)
         {
-            _currentRoom = room;            
+            _currentRoom = room;
+            _inventory = new ItemContainer("inventory", 0f, 0, 50, 0, 0, "your inventory is where all of your held items is stored");
         }
 
         public void WaltTo(string direction)
@@ -42,21 +41,19 @@ namespace StarterGame
             }
         }
 
-        //puts items in inventory
         public void Give(IItem item)
         {
-            _bag.AddItem(item);
+            _inventory.AddItem(item);
         }
 
-        //takes item out inventory
+        
         public IItem Take(string itemName)
         {
-            IItem item = _bag.RemoveItem(itemName);
+            IItem item = _inventory.RemoveItem(itemName);
             return item;
         }
 
-
-
+        //takes item out of inventory
         public void Drop(string itemName)
         {
             IItem item = Take(itemName);
@@ -71,22 +68,22 @@ namespace StarterGame
             }
         }
 
+        //adds item to inventory
         public void PickUp(string itemName)
         {
             IItem item = CurrentRoom.Pickup(itemName);
             if (item != null)
             {
-                //check for item weight
-                if ((Bag.weightInContainer() + item.Weight) >= Bag.Capacity)
+                /*if ((item.Weight + Bag.weightInContainer()) >= Bag.Capacity)
                 {
                     OutputMessage("Your inventory is full");
                     CurrentRoom.Drop(item);
                 }
                 else
-                {
+                {*/
                     Give(item);
                     OutputMessage(itemName + " has been picked up");
-                }
+                //}
             }
             else
             {
@@ -108,10 +105,14 @@ namespace StarterGame
             }
         }
 
+        public void Inventory()
+        {
+            OutputMessage(_inventory.Description);
+        }
+
         public void OutputMessage(string message)
         {
             Console.WriteLine(message);
         }
     }
-
 }
