@@ -47,13 +47,27 @@ namespace StarterGame
             garden.SetExit("east", finalRoom);
 
             library.SetExit("south", garden);
-            
 
             infirmary.SetExit("north", garden);
-            
 
             finalRoom.SetExit("west", garden);
-            
+
+            //Puts items in world
+            IItem sword = new Item("sword", 50f, 6.4, 2, 1, "this is a broken knight's longsword sword");
+            IItem decorator = new Item("blade", 9.7f, 8.6, 3, 2, "the blade to the broken sword");
+            sword.AddDecorator(decorator);
+            mainCorridor.Drop(sword);
+
+            //IItem bag = new Bag();
+            //outside.Drop(bag);
+
+            IItem itemContainer = new ItemContainer("chest");
+            IItem itemInContainer = new Item("dagger", 6.1f, 3.9, 5, 10, "a basic dagger");
+            itemContainer.AddItem(itemInContainer);
+            itemInContainer = new Item("shield", 10f, 8.6, 10, 20, "a shield for blocking");
+            itemContainer.AddItem(itemInContainer);
+            armory.Drop(itemContainer);
+
 
             return outside;
         }
