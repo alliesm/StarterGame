@@ -7,7 +7,9 @@ namespace StarterGame
     public class Player
     {
         private Room _currentRoom = null;
-        private IItem _inventory = null;
+        private Bag _bag;
+        public Bag Bag { get { return _bag; } set { _bag = value; } }
+
 
         public Room CurrentRoom
         {
@@ -23,8 +25,7 @@ namespace StarterGame
 
         public Player(Room room)
         {
-            _currentRoom = room;
-            _inventory = new ItemContainer("inventory", 0f, 0, 50, "stores all held items");
+            _currentRoom = room;            
         }
 
         public void WaltTo(string direction)
@@ -44,13 +45,13 @@ namespace StarterGame
         //puts items in inventory
         public void Give(IItem item)
         {
-            _inventory.AddItem(item);
+            _bag.AddItem(item);
         }
 
         //takes item out inventory
         public IItem Take(string itemName)
         {
-            IItem item = _inventory.RemoveItem(itemName);
+            IItem item = _bag.RemoveItem(itemName);
             return item;
         }
 
@@ -76,7 +77,7 @@ namespace StarterGame
             if (item != null)
             {
                 //check for item weight
-                if ()
+                if ((Bag.weightInContainer() + item.Weight) >= Bag.Capacity)
                 {
                     OutputMessage("Your inventory is full");
                     CurrentRoom.Drop(item);
@@ -105,11 +106,6 @@ namespace StarterGame
             {
                 OutputMessage("The item '" + itemName + "' is not in the room.");
             }
-        }
-
-        public void Inventory()
-        {
-            OutputMessage(_inventory.Description);
         }
 
         public void OutputMessage(string message)

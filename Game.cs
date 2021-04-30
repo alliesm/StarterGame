@@ -57,14 +57,15 @@ namespace StarterGame
             IItem decorator = new Item("blade", 9.7f, 8.6, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
+            
+            IItem dagger = new Item("dagger", 6.1f, 3.9, "a basic dagger");
+            armory.Drop(dagger);
+            IItem shield = new Item("shield", 10f, 8.6, "a shield for blocking");
+            armory.Drop(shield);
 
-            IItem itemContainer = new ItemContainer("chest");
-            IItem itemInContainer = new Item("dagger", 6.1f, 3.9, "a basic dagger");
+            IItem itemContainer = new ItemContainer("lockbox", 1f, 1, "the lockbox that contains the key");
+            IItem itemInContainer = new Item("key", 0f, 0, "the key");
             itemContainer.AddItem(itemInContainer);
-            itemInContainer = new Item("shield", 10f, 8.6, "a shield for blocking");
-            itemContainer.AddItem(itemInContainer);
-            armory.Drop(itemContainer);
-
 
             return outside;
         }
