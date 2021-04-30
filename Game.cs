@@ -53,7 +53,7 @@ namespace StarterGame
             finalRoom.SetExit("west", garden);
 
             //Puts items in world
-            IItem sword = new Item("sword", 50f, 6.4, 2, 1, "this is a broken knight's longsword sword");
+            IItem sword = new Item("sword", 5.3f, 6.4, 2, 1, "this is a broken knight's longsword sword");
             IItem decorator = new Item("blade", 9.7f, 8.6, 3, 2, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
