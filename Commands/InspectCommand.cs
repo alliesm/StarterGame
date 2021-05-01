@@ -14,13 +14,20 @@ namespace StarterGame
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
+            string inspect = "";
+            if (QWords.Count == 0)
             {
-                player.Inspect(this.SecondWord);
+                player.OutputMessage("\nInspect What?");
+                
             }
             else
             {
-                player.OutputMessage("\nInspect What?");
+                while (QWords.Count > 0)
+                {
+                    inspect += QWords.Dequeue() + " ";
+                }
+                inspect = inspect.TrimEnd();
+                player.Inspect(inspect);
             }
             return false;
         }

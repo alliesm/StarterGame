@@ -12,9 +12,9 @@ namespace StarterGame
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
+            if (QWords.Count > 0)
             {
-                player.OutputMessage("\nI cannot Inventory " + this.SecondWord);
+                player.OutputMessage("\nI cannot Inventory " + QWords);
             }
             else
             {

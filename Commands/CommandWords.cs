@@ -7,7 +7,7 @@ namespace StarterGame
     public class CommandWords
     {
         Dictionary<string, Command> commands;
-        private static Command[] commandArray = { new GoCommand(), new QuitCommand(), new InspectCommand(),
+        private static Command[] commandArray = { new GoCommand(), new QuitCommand(), new ExploreCommand(), new InspectCommand(),
          new PickupCommand(), new InventoryCommand(), new DropCommand(), new OpenCommand()};
 
         public CommandWords() : this(commandArray)
@@ -36,12 +36,20 @@ namespace StarterGame
         {
             string commandNames = "";
             Dictionary<string, Command>.KeyCollection keys = commands.Keys;
+            int count = 0;
             foreach (string commandName in keys)
             {
-                commandNames += " " + commandName;
+                count++;
+                if (keys.Count == count)
+                {
+                    commandNames += " " + commandName;
+                }
+                else
+                {
+                    commandNames += commandName + ", ";
+                }
             }
             return commandNames;
-
 
         }
     }

@@ -80,6 +80,11 @@ namespace StarterGame
             _inventory.AddItem(item);
         }
 
+        public void Explore()
+        {
+            this.OutputMessage("\n" + this._currentRoom.Description());
+        }
+
         
         public IItem Take(string itemName)
         {

@@ -14,13 +14,19 @@ namespace StarterGame
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
-            {
-                player.Open(this.SecondWord);
+            string lockedDoor = "";
+            if (QWords.Count == 0)
+            {                
+                player.OutputMessage("\nOpen What?");
             }
             else
             {
-                player.OutputMessage("\nOpen What?");
+                while (QWords.Count > 0)
+                {
+                    lockedDoor += QWords.Dequeue() + " ";
+                }
+                lockedDoor = lockedDoor.TrimEnd();
+                player.Open(lockedDoor);
             }
             return false;
         }

@@ -48,7 +48,7 @@ namespace StarterGame
             //mainCorridor.SetExit("north", tradingRoom);
             //tradingRoom.SetExit("south", mainCorridor);
             door = Door.CreateDoor(mainCorridor, tradingRoom, "south", "north"); 
-
+            
             //garrison.SetExit("south", armory);
             //armory.SetExit("north", garrison);
             door = Door.CreateDoor(garrison, armory, "north", "south");
