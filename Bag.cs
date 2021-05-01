@@ -10,7 +10,8 @@ namespace StarterGame
         private Dictionary<string, List<IItem>> _container;
         public Dictionary<string, List<IItem>> Container { get { return _container; } }
 
-        public string Name { get; set; }
+        private readonly string _name = "bag";
+        public string Name { get { return _name; } set { Name = _name; } }
 
         private int _capacity;
         public int Capacity { get { return _capacity; } }
@@ -82,7 +83,6 @@ namespace StarterGame
         //Designated constructor
         public Bag()
         {
-            Name = "bag";
             _container = new Dictionary<string, List<IItem>>();
             _weight = 0;
             _volume = 0;
