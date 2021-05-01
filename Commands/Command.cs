@@ -8,18 +8,16 @@ namespace StarterGame
     {
         private string _name;
         public string Name { get { return _name; } set { _name = value; } }
-        private string _secondWord;
-        public string SecondWord { get { return _secondWord; } set { _secondWord = value; } }
+
+        //Queues allow for an unlimited amount of words in commands
+        private Queue<string> qWords;
+        public Queue<string> QWords { get { return qWords; } set { qWords = value; } }
 
         public Command()
         {
             this.Name = "";
-            this.SecondWord = null;
-        }
-
-        public bool HasSecondWord()
-        {
-            return this.SecondWord != null;
+            this.qWords = null;
+            
         }
 
         public abstract bool Execute(Player player);

@@ -4,30 +4,29 @@ using System;
 
 namespace StarterGame
 {
-    public class InspectCommand : Command
+    public class OpenCommand : Command
     {
-        public InspectCommand() : base()
+        public OpenCommand() : base()
         {
-            this.Name = "inspect";
+            this.Name = "open";
         }
 
         override
         public bool Execute(Player player)
         {
-            string inspect = "";
+            string lockedDoor = "";
             if (QWords.Count == 0)
-            {
-                player.OutputMessage("\nInspect What?");
-                
+            {                
+                player.OutputMessage("\nOpen What?");
             }
             else
             {
                 while (QWords.Count > 0)
                 {
-                    inspect += QWords.Dequeue() + " ";
+                    lockedDoor += QWords.Dequeue() + " ";
                 }
-                inspect = inspect.TrimEnd();
-                player.Inspect(inspect);
+                lockedDoor = lockedDoor.TrimEnd();
+                player.Open(lockedDoor);
             }
             return false;
         }

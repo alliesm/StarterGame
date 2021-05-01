@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-/*namespace StarterGame
+namespace StarterGame
 {
     public class DropCommand : Command
     {
@@ -14,15 +14,22 @@ using System;
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
+            string dropItem = "";
+            if (QWords.Count == 0)
             {
-                player.Drop(this.SecondWord);
+                player.OutputMessage("\nDrop What?");
             }
             else
             {
-                player.OutputMessage("\nDrop What?");
+                //this allows for an unlimited number of words
+                while (QWords.Count > 0)
+                {
+                    dropItem += QWords.Dequeue() + " ";
+                }
+                dropItem = dropItem.TrimEnd();
+                player.Drop(dropItem);
             }
             return false;
         }
     }
-}*/
+}

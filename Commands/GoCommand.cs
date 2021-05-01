@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace StarterGame
 {
@@ -14,13 +15,20 @@ namespace StarterGame
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
+            string rooms = "";
+            if (QWords.Count == 0)
             {
-                player.WaltTo(this.SecondWord);
+                player.OutputMessage("\nGo Where?");
             }
             else
             {
-                player.OutputMessage("\nGo Where?");
+                //this allows for an unlimited number of words
+                while (QWords.Count > 0)
+                {
+                    rooms += QWords.Dequeue() + " ";
+                }
+                rooms = rooms.TrimEnd();
+                player.WaltTo(rooms);
             }
             return false;
         }

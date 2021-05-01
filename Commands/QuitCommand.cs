@@ -15,9 +15,9 @@ namespace StarterGame
         public bool Execute(Player player)
         {
             bool answer = true;
-            if (this.HasSecondWord())
+            if (QWords.Count > 0)
             {
-                player.OutputMessage("\nI cannot quit " + this.SecondWord);
+                player.OutputMessage("\nI cannot quit " + QWords);
                 answer = false;
             }
             return answer;

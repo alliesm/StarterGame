@@ -8,19 +8,26 @@ namespace StarterGame
     {
         public PickupCommand() : base()
         {
-            this.Name = "pickup";
+            this.Name = "pick up";
         }
 
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
+            string grabItem = "";
+            if (QWords.Count == 0)
             {
-                player.PickUp(this.SecondWord);
+                player.OutputMessage("\nWhat would you like to pick up?");
             }
             else
             {
-                player.OutputMessage("\nPickup What?");
+                //this allows for an unlimited number of words
+                while (QWords.Count > 0)
+                {
+                    grabItem += QWords.Dequeue() + " ";
+                }
+                grabItem = grabItem.TrimEnd();
+                player.PickUp(grabItem);
             }
             return false;
         }

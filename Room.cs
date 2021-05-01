@@ -6,7 +6,7 @@ namespace StarterGame
 {
     public class Room
     {
-        private Dictionary<string, Room> exits;
+        private Dictionary<string, Door> exits;
         private string _tag;
         public string Tag
         {
@@ -40,27 +40,27 @@ namespace StarterGame
 
         public Room(string tag)
         {
-            _ground = new ItemContainer("ground", 0f, 0, 0, 0, 0, "items currently on the ground around you");
-            exits = new Dictionary<string, Room>();
+            _ground = new ItemContainer("floor loot", 0f, 0, 0, 0, 0, "items currently on the ground around you");
+            exits = new Dictionary<string, Door>();
             this.Tag = tag;
         }
 
-        public void SetExit(string exitName, Room room)
+        public void SetExit(string exitName, Door door)
         {
-            exits[exitName] = room;
+            exits[exitName] = door;
         }
 
-        public Room GetExit(string exitName)
+        public Door GetExit(string exitName)
         {
-            Room room = null;
-            exits.TryGetValue(exitName, out room);
-            return room;
+            Door door = null;
+            exits.TryGetValue(exitName, out door);
+            return door;
         }
 
         public string GetExits()
         {
             string exitNames = "Exits: ";
-            Dictionary<string, Room>.KeyCollection keys = exits.Keys;
+            Dictionary<string, Door>.KeyCollection keys = exits.Keys;
             foreach (string exitName in keys)
             {
                 exitNames += " " + exitName;
@@ -76,7 +76,7 @@ namespace StarterGame
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\n ^^^" + GetItems();
+            return "You entered " + this.Tag + ".\n*** " + this.GetExits() + "\n^^^" + GetItems();
         }
     }
 }

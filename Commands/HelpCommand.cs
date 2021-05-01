@@ -20,9 +20,9 @@ namespace StarterGame
         override
         public bool Execute(Player player)
         {
-            if (this.HasSecondWord())
+            if (QWords.Count > 0)
             {
-                player.OutputMessage("\nI cannot help you with " + this.SecondWord);
+                player.OutputMessage("\nI cannot help you with " + QWords);
             }
             else
             {

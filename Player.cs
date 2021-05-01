@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace StarterGame
 {
@@ -27,23 +28,61 @@ namespace StarterGame
             _inventory = new ItemContainer("inventory", 0f, 0, 50, 0, 0, "your inventory is where all of your held items is stored");
         }
 
+        //Allows the player to move into another room
         public void WaltTo(string direction)
         {
-            Room nextRoom = this._currentRoom.GetExit(direction);
-            if (nextRoom != null)
+            Door door = this.CurrentRoom.GetExit(direction);
+            
+            if (door != null)
             {
-                this._currentRoom = nextRoom;
-                this.OutputMessage("\n" + this._currentRoom.Description());
+                if (door.IsOpen)
+                {
+                    Room nextRoom = door.ConnectedRoom(CurrentRoom);
+                    this._currentRoom = nextRoom;
+                    this.OutputMessage("\n" + this._currentRoom.Description());
+                }
+                else
+                {
+                    OutputMessage("\nThe " + direction + " is locked");
+                }
             }
             else
             {
-                this.OutputMessage("\nThere is no door on " + direction);
+                this.OutputMessage("\nThere is no door to the " + direction);
             }
+        }
+
+        public void Open(string direction)
+        {
+            Door door = this.CurrentRoom.GetExit(direction);
+
+            if (door != null)
+            {
+                if (door.IsOpen)
+                {
+                    OutputMessage("\nThe " + direction + " is already opened");
+                }
+                else
+                {
+                    door.open();
+                    OutputMessage("\nThe door " + direction + " is now opened");
+                }
+            }
+            else
+            {
+                this.OutputMessage("\nThere is no door to the " + direction);
+            }
+
         }
 
         public void Give(IItem item)
         {
             _inventory.AddItem(item);
+        }
+
+        public void Explore()
+        {
+            this.OutputMessage("\n" + this._currentRoom.Description());
         }
 
         
@@ -60,7 +99,7 @@ namespace StarterGame
             if (item != null)
             {
                 CurrentRoom.Drop(item);
-                OutputMessage(itemName + " has been dropped");
+                OutputMessage("\n" + itemName + " has been dropped");
             }
             else
             {
@@ -82,7 +121,7 @@ namespace StarterGame
                 else
                 {*/
                     Give(item);
-                    OutputMessage(itemName + " has been picked up");
+                    OutputMessage("\n" + itemName + " has been picked up");
                 //}
             }
             else
@@ -91,19 +130,34 @@ namespace StarterGame
             }
         }
 
+        /*public float weightInInventory()
+        {
+            float temp = 0;
+            Dictionary<string, IItem>.ValueCollection values = _inventory;
+            foreach (List<IItem> items in values)
+            {
+                foreach (IItem item in items)
+                {
+                    temp += item.Weight;
+                }
+            }
+            return temp;
+        }*/
+
         public void Inspect(string itemName)
         {
             IItem item = CurrentRoom.Pickup(itemName);
             if (item != null)
             {
-                OutputMessage("Current item:  " + item.Description);
+                OutputMessage("\nCurrent item:  " + item.Description);
                 CurrentRoom.Drop(item);
             }
             else
             {
-                OutputMessage("The item '" + itemName + "' is not in the room.");
+                OutputMessage("\nThe item '" + itemName + "' is not in the room.");
             }
         }
+
 
         public void Inventory()
         {
