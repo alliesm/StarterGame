@@ -8,7 +8,7 @@ namespace StarterGame
     {
         Dictionary<string, Command> commands;
         private static Command[] commandArray = { new GoCommand(), new QuitCommand(), new InspectCommand(),
-         new PickupCommand(), new InventoryCommand()};
+         new PickupCommand(), new InventoryCommand(), new DropCommand(), new OpenCommand()};
 
         public CommandWords() : this(commandArray)
         {

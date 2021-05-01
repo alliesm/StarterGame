@@ -29,42 +29,59 @@ namespace StarterGame
             Room garden = new Room("in the garden");
             Room finalRoom = new Room("in the lair of ....");
 
-            outside.SetExit("east", mainCorridor);
+            //outside.SetExit("east", mainCorridor);
+            //mainCorridor.SetExit("west", outside);
+            //Door door = new Door(mainCorridor, outside);
+            //outside.SetExit("east", door);
+            //mainCorridor.SetExit("west", door);
+            Door door = Door.CreateDoor(outside, mainCorridor, "west", "east");
 
-            mainCorridor.SetExit("east", garden);
-            mainCorridor.SetExit("south", garrison);
-            mainCorridor.SetExit("west", outside);
-            mainCorridor.SetExit("north", tradingRoom);
 
-            tradingRoom.SetExit("south", mainCorridor);
+            //mainCorridor.SetExit("east", garden);
+            //garden.SetExit("west", mainCorridor);
+            door = Door.CreateDoor(mainCorridor, garden, "west", "east");
 
-            garrison.SetExit("south", armory);
-            garrison.SetExit("north", mainCorridor);
+            //mainCorridor.SetExit("south", garrison);
+            //garrison.SetExit("north", mainCorridor);
+            door = Door.CreateDoor(mainCorridor, garrison, "north", "south");
 
-            garden.SetExit("south", infirmary);
-            garden.SetExit("north", library);
-            garden.SetExit("west", mainCorridor);
-            garden.SetExit("east", finalRoom);
+            //mainCorridor.SetExit("north", tradingRoom);
+            //tradingRoom.SetExit("south", mainCorridor);
+            door = Door.CreateDoor(mainCorridor, tradingRoom, "south", "north"); 
 
-            library.SetExit("south", garden);
+            //garrison.SetExit("south", armory);
+            //armory.SetExit("north", garrison);
+            door = Door.CreateDoor(garrison, armory, "north", "south");
 
-            infirmary.SetExit("north", garden);
+            //garden.SetExit("south", infirmary);
+            //infirmary.SetExit("north", garden);
+            door = Door.CreateDoor(garden, infirmary, "north", "south");
 
-            finalRoom.SetExit("west", garden);
+            //garden.SetExit("north", library);
+            //library.SetExit("south", garden);
+            door = Door.CreateDoor(garden, library, "south", "north");
+
+            //garden.SetExit("east", finalRoom);
+            //finalRoom.SetExit("west", garden);
+            door = Door.CreateDoor(garden, finalRoom, "west", "east");
+            door.close();
+
 
             //Puts items in world
-            IItem sword = new Item("sword", 5.3f, 6.4, 2, 1, "this is a broken knight's longsword sword");
-            IItem decorator = new Item("blade", 9.7f, 8.6, 3, 2, "the blade to the broken sword");
+            IItem sword = new Item("sword", 5.3f, 6, 2, 1, "this is a broken knight's longsword sword");
+            IItem decorator = new Item("blade", 9.7f, 8, 3, 2, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
 
             //IItem bag = new Bag();
             //outside.Drop(bag);
 
-            IItem itemContainer = new ItemContainer("chest");
-            IItem itemInContainer = new Item("dagger", 6.1f, 3.9, 5, 10, "a basic dagger");
-            itemContainer.AddItem(itemInContainer);
-            itemInContainer = new Item("shield", 10f, 8.6, 10, 20, "a shield for blocking");
+            
+            IItem axe = new Item("axe", 6.1f, 6, 20, 10, "an axe");
+            IItem shield = new Item("shield", 15.3f, 10, 15, 20, "a shield for blocking");
+
+            IItem itemContainer = new ItemContainer("lockbox", 4f, 6, 5, 2, 3, "holds the key to the boss door");
+            IItem itemInContainer = new Item("key", 0.01f, 0.01, 0, 0, "the key to the boss door");
             itemContainer.AddItem(itemInContainer);
             armory.Drop(itemContainer);
 

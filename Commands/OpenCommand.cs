@@ -4,11 +4,11 @@ using System;
 
 namespace StarterGame
 {
-    public class DropCommand : Command
+    public class OpenCommand : Command
     {
-        public DropCommand() : base()
+        public OpenCommand() : base()
         {
-            this.Name = "drop";
+            this.Name = "open";
         }
 
         override
@@ -16,11 +16,11 @@ namespace StarterGame
         {
             if (this.HasSecondWord())
             {
-                player.Drop(this.SecondWord);
+                player.Open(this.SecondWord);
             }
             else
             {
-                player.OutputMessage("\nDrop What?");
+                player.OutputMessage("\nOpen What?");
             }
             return false;
         }
