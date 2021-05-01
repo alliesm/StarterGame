@@ -7,11 +7,12 @@ namespace StarterGame
     public interface IItem
     {
         string Name { get; set; }
-        float Weight { get; set; }
-        double Volume { get; set; }
+        float Weight { get; }
+        double Volume { get; }
         int BuyPrice { get; set; }
         int SellPrice { get; set; }
         string Description { get; }
+        //HashSet<ItemType> ItemTypes { get; }
         void AddDecorator(IItem decorator);
         bool IsContainer { get; }
         void AddItem(IItem item);

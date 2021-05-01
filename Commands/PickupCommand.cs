@@ -19,6 +19,10 @@ namespace StarterGame
             {
                 player.OutputMessage("\nWhat would you like to pick up?");
             }
+            if(player.Bag == null)
+            {
+                player.OutputMessage("\nYou have nowhere to store this item.");
+            }
             else
             {
                 //this allows for an unlimited number of words
