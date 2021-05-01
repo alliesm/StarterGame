@@ -54,7 +54,7 @@ namespace StarterGame
                 {
                     itemList += "\n " + item.Description;
                 }
-                return "Name: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Capacity: " + Capacity + ", Buy Price: " + BuyPrice + ", Sell Price: " + SellPrice + ", " + _description + "\n" + itemList;
+                return "\nName: " + Name + ", Weight: " + Weight + ", Volume: " + Volume + ", Capacity: " + Capacity + ", Buy Price: " + BuyPrice + ", Sell Price: " + SellPrice + ", " + _description + "\n" + itemList;
             }
         }
 
@@ -147,10 +147,10 @@ namespace StarterGame
         {
             string list = "";
             Dictionary<string, List<IItem>>.ValueCollection values = Inventory.Values;
-            list += "\nWeight in Bag: " + weightInBag() + "lbs\n\t";
+            list += "\nWeight in Bag: " + weightInBag();
             foreach (List<IItem> item in values)
             {
-                list += item.First().Name + ": " + item.Count + "\n\t";
+                list += item.First().Name;
             }
             return list;
         }

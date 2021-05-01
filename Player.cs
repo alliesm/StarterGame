@@ -43,12 +43,12 @@ namespace StarterGame
                 }
                 else
                 {
-                    OutputMessage("\nThe door " + direction + " is locked");
+                    OutputMessage("\nThe " + direction + " is locked");
                 }
             }
             else
             {
-                this.OutputMessage("\nThere is no door " + direction);
+                this.OutputMessage("\nThere is no door to the " + direction);
             }
         }
 
@@ -60,17 +60,17 @@ namespace StarterGame
             {
                 if (door.IsOpen)
                 {
-                    OutputMessage("\nDoor on " + direction + " is alreadyed opened");
+                    OutputMessage("\nThe " + direction + " is already opened");
                 }
                 else
                 {
                     door.open();
-                    OutputMessage("The door " + direction + " is now opened");
+                    OutputMessage("\nThe door " + direction + " is now opened");
                 }
             }
             else
             {
-                this.OutputMessage("\nThere is no door " + direction);
+                this.OutputMessage("\nThere is no door to the " + direction);
             }
 
         }
@@ -99,7 +99,7 @@ namespace StarterGame
             if (item != null)
             {
                 CurrentRoom.Drop(item);
-                OutputMessage(itemName + " has been dropped");
+                OutputMessage("\n" + itemName + " has been dropped");
             }
             else
             {
@@ -121,7 +121,7 @@ namespace StarterGame
                 else
                 {*/
                     Give(item);
-                    OutputMessage(itemName + " has been picked up");
+                    OutputMessage("\n" + itemName + " has been picked up");
                 //}
             }
             else
@@ -149,12 +149,12 @@ namespace StarterGame
             IItem item = CurrentRoom.Pickup(itemName);
             if (item != null)
             {
-                OutputMessage("Current item:  " + item.Description);
+                OutputMessage("\nCurrent item:  " + item.Description);
                 CurrentRoom.Drop(item);
             }
             else
             {
-                OutputMessage("The item '" + itemName + "' is not in the room.");
+                OutputMessage("\nThe item '" + itemName + "' is not in the room.");
             }
         }
 

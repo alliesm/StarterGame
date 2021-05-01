@@ -6,7 +6,7 @@ namespace StarterGame
 {
     public class Parser
     {
-        private Stack<CommandWords> _commands;
+        private CommandWords _commands;
 
         public Parser() : this(new CommandWords())
         {
@@ -15,8 +15,7 @@ namespace StarterGame
 
         public Parser(CommandWords newCommands)
         {
-            _commands = new Stack<CommandWords>();
-            _commands.Push(newCommands);
+            _commands = newCommands;
         }
 
         public Command ParseCommand(string commandString)
@@ -54,7 +53,7 @@ namespace StarterGame
             while (newWords.Count > 0 && command == null)
             {
                 commandName += newWords.Dequeue().Trim();
-                command = _commands.Peek().Get(commandName);
+                command = _commands.Get(commandName);
                 if (command == null)
                 {
                     commandName += " ";
@@ -65,7 +64,7 @@ namespace StarterGame
 
         public string Description()
         {
-            return _commands.Peek().Description();
+            return _commands.Description();
         }
     }
 }

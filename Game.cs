@@ -25,7 +25,7 @@ namespace StarterGame
             Room garrison = new Room("in the garrison");
             Room armory = new Room("in the armory");
             Room library = new Room("in the library");
-            Room tradingRoom = new Room("in the blacksmithing area");
+            Room tradingRoom = new Room("in the blacksmith's forge");
             Room garden = new Room("in the garden");
             Room finalRoom = new Room("in the lair of ....");
 
@@ -34,36 +34,36 @@ namespace StarterGame
             //Door door = new Door(mainCorridor, outside);
             //outside.SetExit("east", door);
             //mainCorridor.SetExit("west", door);
-            Door door = Door.CreateDoor(outside, mainCorridor, "west", "east");
+            Door door = Door.CreateDoor(outside, mainCorridor, "outside", "main corridor");
 
 
             //mainCorridor.SetExit("east", garden);
             //garden.SetExit("west", mainCorridor);
-            door = Door.CreateDoor(mainCorridor, garden, "west", "east");
+            door = Door.CreateDoor(mainCorridor, garden, "main corridor", "garden");
 
             //mainCorridor.SetExit("south", garrison);
             //garrison.SetExit("north", mainCorridor);
-            door = Door.CreateDoor(mainCorridor, garrison, "north", "south");
+            door = Door.CreateDoor(mainCorridor, garrison, "main corridor", "garrison");
 
             //mainCorridor.SetExit("north", tradingRoom);
             //tradingRoom.SetExit("south", mainCorridor);
-            door = Door.CreateDoor(mainCorridor, tradingRoom, "south", "north"); 
+            door = Door.CreateDoor(mainCorridor, tradingRoom, "main corridor", "blacksmith forge"); 
             
             //garrison.SetExit("south", armory);
             //armory.SetExit("north", garrison);
-            door = Door.CreateDoor(garrison, armory, "north", "south");
+            door = Door.CreateDoor(garrison, armory, "garrison", "armory");
 
             //garden.SetExit("south", infirmary);
             //infirmary.SetExit("north", garden);
-            door = Door.CreateDoor(garden, infirmary, "north", "south");
+            door = Door.CreateDoor(garden, infirmary, "garden", "infirmary");
 
             //garden.SetExit("north", library);
             //library.SetExit("south", garden);
-            door = Door.CreateDoor(garden, library, "south", "north");
+            door = Door.CreateDoor(garden, library, "garden", "library");
 
             //garden.SetExit("east", finalRoom);
             //finalRoom.SetExit("west", garden);
-            door = Door.CreateDoor(garden, finalRoom, "west", "east");
+            door = Door.CreateDoor(garden, finalRoom, "garden", "boss lair");
             door.close();
 
 

@@ -40,7 +40,7 @@ namespace StarterGame
 
         public Room(string tag)
         {
-            _ground = new ItemContainer("ground", 0f, 0, 0, 0, 0, "items currently on the ground around you");
+            _ground = new ItemContainer("floor loot", 0f, 0, 0, 0, 0, "items currently on the ground around you");
             exits = new Dictionary<string, Door>();
             this.Tag = tag;
         }
@@ -76,7 +76,7 @@ namespace StarterGame
 
         public string Description()
         {
-            return "You entered " + this.Tag + ".\n *** " + this.GetExits() + "\n ^^^" + GetItems();
+            return "You entered " + this.Tag + ".\n*** " + this.GetExits() + "\n^^^" + GetItems();
         }
     }
 }
