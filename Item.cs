@@ -174,7 +174,7 @@ namespace StarterGame
         {
             get
             {
-                string itemList = "Items: ";
+                string itemList = "\nItems: ";
                 foreach (IItem item in _container.Values)
                 {
                     itemList += "\n " + item.Description;
