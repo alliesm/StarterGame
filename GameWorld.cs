@@ -18,7 +18,17 @@ namespace StarterGame
         }
 
         private Room _outside;
-        public Room Entrance { get { return _outside; } }
+        public Room Entrance
+        {
+            get
+            {
+                return _outside;
+            }
+        }
+        private Room MainCorridor;
+        private Room bossFight;
+
+
         private List<Room> roomList;
 
         private GameWorld()
@@ -28,6 +38,8 @@ namespace StarterGame
 
 
             //Notifications go here
+            NotificationCenter.Instance.AddObserver("Picked up key", foundKey);
+            NotificationCenter.Instance.AddObserver("found bag", foundBag);
         }
 
         public Room CreateWorld()
@@ -80,6 +92,11 @@ namespace StarterGame
             door.close();
 
 
+            //triggers notification
+            MainCorridor = mainCorridor;
+            bossFight = finalRoom;
+
+
             //Puts items in world
             IItem sword = new Item("sword", 5.3f, 3.2, 2, 1, "this is the hilt a broken knight's longsword");
             IItem decorator = new Item("blade", 9.7f, 7, 3, 2, "the blade to the broken sword");
@@ -101,7 +118,37 @@ namespace StarterGame
             return outside;
         }
 
-        
 
+        //posts a notification to tell the player that they can go to the final boss door
+        public void foundKey(Notification notification)
+        {
+            Player player = (Player)notification.Object;
+
+            if(player.Bag.CheckForItem("key") == true)
+            {
+                Console.WriteLine("\nYou found the key to the boss door. Make sure you're ready for this fight"
+                    + ", then head to the boss lair and open the door");
+            }
+        }
+
+        //gives the player a bag when they enter the main corridor
+        public void foundBag(Notification notification)
+        {
+            Player player = (Player)notification.Object;
+
+            if (player.CurrentRoom == MainCorridor)
+            {
+                GiveBag(player);                
+            }
+        }
+        public void GiveBag(Player player)
+        {
+            if(player.Bag == null)
+            {
+                Console.WriteLine("\nYou found a bag, this allows you to store items ");
+                player.Bag = new Bag();
+                Console.WriteLine(player.Bag.Description);
+            }
+        }
     }
 }

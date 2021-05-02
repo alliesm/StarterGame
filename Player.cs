@@ -51,8 +51,14 @@ namespace StarterGame
             {
                 if (door.IsOpen)
                 {
+                    Notification notification = new Notification("PlayerEntersRoom");
+                    NotificationCenter.Instance.PostNotification(notification);
                     Room nextRoom = door.ConnectedRoom(CurrentRoom);
+
                     this._currentRoom = nextRoom;
+
+                    notification = new Notification("PlayerEnteredRoom");
+                    NotificationCenter.Instance.PostNotification(notification);
                     this.OutputMessage("\n" + this._currentRoom.Description());
                 }
                 else
@@ -174,10 +180,10 @@ namespace StarterGame
             }
         }
 
-        public void Inventory()
+        /*public void Inventory()
         {
             OutputMessage(_bag.Description);
-        }
+        }*/
 
         //checks if the player has enough money to buy an item
         public bool EnoughMoney(float cost)
