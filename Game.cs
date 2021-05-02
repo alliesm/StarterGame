@@ -15,6 +15,10 @@ namespace StarterGame
             playing = false;
             parser = new Parser(new CommandWords());
             player = new Player(GameWorld.Instance.Entrance);
+
+            player.CurrentHitPoints = 10;
+            player.MaximumHitPoints = 10;
+            player.Gold = 20;
         }
                 
         /**
@@ -57,7 +61,7 @@ namespace StarterGame
 
         public string Welcome()
         {
-            return "Welcome to the World of CSU!\n\n The World of CSU is a new, incredibly boring adventure game.\n\nType 'help' if you need help." + player.CurrentRoom.Description();
+            return "Welcome to the World of Monstrosity!\n\n The World of Monstrosity is a new, incredibly boring adventure game.\n\nType 'help' if you need help." + player.CurrentRoom.Description();
         }
 
         public string Goodbye()

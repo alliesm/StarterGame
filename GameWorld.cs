@@ -101,7 +101,6 @@ namespace StarterGame
             door = Door.CreateDoor(garden, finalRoom, "garden", "boss lair");
             door.close();
 
-
             //triggers notification
             Entrance = outside;
             Trap = armory;
@@ -130,8 +129,7 @@ namespace StarterGame
             return outside;
         }
 
-
-        //send player to the entrance when they enter the infirmary
+        //send player to the armory when they enter the infirmary
         public void PlayerEnteredRoom(Notification notification)
         {
             Player player = (Player)notification.Object;
