@@ -5,10 +5,12 @@ using System.Linq;
 
 namespace StarterGame
 {
-    public class Player
+    public class Player : LivingCreature
     {
         private Room _currentRoom = null;
         private IItem _inventory = null;
+        
+        public int Gold { get; set; }
 
         public Room CurrentRoom
         {
@@ -27,6 +29,8 @@ namespace StarterGame
             _currentRoom = room;
             _inventory = new ItemContainer("inventory", 0f, 0, 50, 0, 0, "your inventory is where all of your held items is stored");
         }
+
+        
 
         //Allows the player to move into another room
         public void WaltTo(string direction)
