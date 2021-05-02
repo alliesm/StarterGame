@@ -17,42 +17,52 @@ namespace StarterGame
             }
         }
 
-        private Room _outside;
+        private Room _entrance;
         public Room Entrance
         {
             get
             {
-                return _outside;
+                return _entrance;
             }
+            private set { _entrance = value; }
         }
-        private Room MainCorridor;
-        private Room bossFight;
 
+        private Room _trap;
+        public Room Trap
+        {
+            get { return _trap; }
+            private set { _trap = value; }
+        }
 
-        private List<Room> roomList;
+        private Room _mainCorridor;
+        public Room MainCorridor
+        {
+            get { return _mainCorridor; }
+            private set { _mainCorridor = value; }
+        }
 
         private GameWorld()
         {
-            roomList = new List<Room>();
-            _outside = CreateWorld();
+            _entrance = CreateWorld();
 
 
             //Notifications go here
-            NotificationCenter.Instance.AddObserver("Picked up key", foundKey);
-            NotificationCenter.Instance.AddObserver("found bag", foundBag);
+            NotificationCenter.Instance.AddObserver("FoundKey", FoundKey);
+            NotificationCenter.Instance.AddObserver("FoundBag", FoundBag);
+            NotificationCenter.Instance.AddObserver("PlayerEnteredRoom", PlayerEnteredRoom);
         }
 
         public Room CreateWorld()
         {
             Room outside = new Room("outside the main entrance of the dungeon");
-            Room infirmary = new Room("in the infirmary");
-            Room mainCorridor = new Room("in the main corridor");
-            Room garrison = new Room("in the garrison");
-            Room armory = new Room("in the armory");
-            Room library = new Room("in the library");
-            Room tradingRoom = new Room("in the blacksmith's forge");
-            Room garden = new Room("in the garden");
-            Room finalRoom = new Room("in the lair of ....");
+            Room infirmary = new Room("the infirmary");
+            Room mainCorridor = new Room("the main corridor");
+            Room garrison = new Room("the garrison");
+            Room armory = new Room("the armory");
+            Room library = new Room("the library");
+            Room tradingRoom = new Room("the blacksmith's forge");
+            Room garden = new Room("the garden");
+            Room finalRoom = new Room("the lair of ....");
 
             //outside.SetExit("east", mainCorridor);
             //mainCorridor.SetExit("west", outside);
@@ -93,17 +103,19 @@ namespace StarterGame
 
 
             //triggers notification
+            Entrance = outside;
+            Trap = armory;
             MainCorridor = mainCorridor;
-            bossFight = finalRoom;
 
 
             //Puts items in world
             IItem sword = new Item("sword", 5.3f, 3.2, 2, 1, "this is the hilt a broken knight's longsword");
-            IItem decorator = new Item("blade", 9.7f, 7, 3, 2, "the blade to the broken sword");
+            IItem decorator = new Item("blade", 9.7f, 4, 3, 2, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
 
-
+            IItem flagpole = new Item("flag pole", 0f, 60, 0, 0, "a flag flying the banner of an unfamiliar group");
+            mainCorridor.Drop(flagpole);
 
             IItem axe = new Item("axe", 6.1f, 6, 20, 10, "an axe");
             IItem shield = new Item("shield", 15.3f, 8, 15, 20, "a shield for blocking");
@@ -119,12 +131,26 @@ namespace StarterGame
         }
 
 
+        //send player to the entrance when they enter the infirmary
+        public void PlayerEnteredRoom(Notification notification)
+        {
+            Player player = (Player)notification.Object;
+            if (player.CurrentRoom == Trap)
+            {
+                player.CurrentRoom = Trap;
+                Console.WriteLine("****");
+                Console.WriteLine("You have been transported back to the entrance");
+                Console.WriteLine("****");
+            }
+        }
+
+
         //posts a notification to tell the player that they can go to the final boss door
-        public void foundKey(Notification notification)
+        public void FoundKey(Notification notification)
         {
             Player player = (Player)notification.Object;
 
-            if(player.Bag.CheckForItem("key") == true)
+            if (player.Bag.CheckForItem("key") == true)
             {
                 Console.WriteLine("\nYou found the key to the boss door. Make sure you're ready for this fight"
                     + ", then head to the boss lair and open the door");
@@ -132,20 +158,20 @@ namespace StarterGame
         }
 
         //gives the player a bag when they enter the main corridor
-        public void foundBag(Notification notification)
+        public void FoundBag(Notification notification)
         {
             Player player = (Player)notification.Object;
-
             if (player.CurrentRoom == MainCorridor)
             {
-                GiveBag(player);                
+                GivePlayerBag(player);
             }
         }
-        public void GiveBag(Player player)
+        public void GivePlayerBag(Player player)
         {
-            if(player.Bag == null)
+            if (player.Bag == null)
             {
-                Console.WriteLine("\nYou found a bag, this allows you to store items ");
+                Console.WriteLine("\nYou found a bag, this will allow you to store items ");
+                Console.WriteLine("***");
                 player.Bag = new Bag();
                 Console.WriteLine(player.Bag.Description);
             }

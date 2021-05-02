@@ -13,52 +13,15 @@ namespace StarterGame
         private readonly string _name = "bag";
         public string Name { get { return _name; } set { Name = _name; } }
 
-        private int _capacity;
-        public int Capacity { get { return _capacity; } }
-        private int _volumeCapacity;
-        public int VolumeCapacity { get { return _volumeCapacity; } }
+        private float _capacity;
+        public float Capacity { get { return _capacity; } set { _capacity = value; } }
+        private double _volumeCapacity;
+        public double VolumeCapacity { get { return _volumeCapacity; } }
                 
         private int _buyPrice;
         public int BuyPrice { get { return _buyPrice; } set { _buyPrice = value; } }
         private int sellPrice;
         public int SellPrice { get { return sellPrice; } set { sellPrice = value; } }
-
-        //private HashSet<ItemType> itemTypes;
-        //private ItemType[] types = { ItemType.KeyItem };
-        //public HashSet<ItemType> ItemTypes { get { return itemTypes; } }
-
-        //gets the weight of the bag
-
-        //private float _weight;
-        /*public float Weight
-        {
-            get
-            {
-                float containedweight = 0;
-                foreach (IItem item in _container.Values)
-                {
-                    containedweight += item.Weight;
-                }
-                return containedweight + _weight + (_decorator != null ? _decorator.Weight : 0);
-            }
-            set
-            {
-                _weight = value;
-            }
-        }*/
-        /*
-        private double _volume;
-        public double Volume
-        {
-            get
-            {
-                return _volume + (_decorator != null ? _decorator.Volume : 0);
-            }
-            set
-            {
-                _volume = value;
-            }
-        }*/
 
         private float _weight;
         public float Weight { get { return _weight; } set { _weight = value; } }
@@ -71,7 +34,7 @@ namespace StarterGame
         {
             get
             {
-                string itemList = "Items: ";
+                string itemList = "\nItems: ";
                 foreach (IItem item in _container.Values)
                 {
                     itemList += "\n " + item.Description;
@@ -188,7 +151,7 @@ namespace StarterGame
         {
             string list = "";
             Dictionary<string, List<IItem>>.ValueCollection values = Container.Values;
-            list += "\nWeight in Bag: " + WeightInBag();
+            list += "\nWeight in Bag: " + WeightInBag() + "\n";
             foreach (List<IItem> item in values)
             {
                 list += item.First().Name;
