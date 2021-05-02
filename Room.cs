@@ -76,7 +76,7 @@ namespace StarterGame
 
         public string Description()
         {
-            return "You entered " + this.Tag + ".\n*** " + this.GetExits() + "\n^^^" + GetItems();
+            return "\nYou entered " + this.Tag + ".\n*** " + this.GetExits() + "\n^^^" + GetItems();
         }
     }
 }

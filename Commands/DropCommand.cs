@@ -27,7 +27,7 @@ namespace StarterGame
                     dropItem += QWords.Dequeue() + " ";
                 }
                 dropItem = dropItem.TrimEnd();
-                player.Drop(dropItem);
+                player.Take(dropItem);
             }
             return false;
         }

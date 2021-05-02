@@ -8,7 +8,10 @@ namespace StarterGame
     {
         Dictionary<string, Command> commands;
         private static Command[] commandArray = { new GoCommand(), new QuitCommand(), new ExploreCommand(), new InspectCommand(),
-         new PickupCommand(), new InventoryCommand(), new DropCommand(), new OpenCommand()};
+         new PickupCommand(), new BagCommand(), new DropCommand(), new OpenCommand()};
+
+        //this array uses the stack function for when a player is in a certain scenario
+        public static Command[] BagCommands = { new CloseBagCommand()};
 
         public CommandWords() : this(commandArray)
         {
