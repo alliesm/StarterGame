@@ -27,6 +27,13 @@ namespace StarterGame
             private set { _entrance = value; }
         }
 
+        private Room _teleport;
+        public Room Teleport
+        {
+            get { return _teleport; }
+            private set { _teleport = value; }
+        }
+
         private Room _trap;
         public Room Trap
         {
@@ -104,6 +111,7 @@ namespace StarterGame
 
             //triggers notification
             Entrance = outside;
+            Teleport = infirmary;
             Trap = armory;
             MainCorridor = mainCorridor;
 
@@ -135,11 +143,11 @@ namespace StarterGame
         public void PlayerEnteredRoom(Notification notification)
         {
             Player player = (Player)notification.Object;
-            if (player.CurrentRoom == Trap)
+            if (player.CurrentRoom == Teleport)
             {
                 player.CurrentRoom = Trap;
                 Console.WriteLine("****");
-                Console.WriteLine("You have been transported back to the entrance");
+                Console.WriteLine("You have been transported to a trap room");
                 Console.WriteLine("****");
             }
         }
