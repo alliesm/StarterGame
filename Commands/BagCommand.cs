@@ -18,12 +18,14 @@ namespace StarterGame
                 player.OutputMessage("\nMoney: " + player.Money);
                 player.OutputMessage(player.Bag.ShowInventory() +
                     "\nType 'close bag' to close your bag");
+                return false;
             }
             else
             {
                 player.OutputMessage("You don't have a bag yet");
+                player.OutputMessage(player.CurrentRoom.Description());
+                return false;
             }
-            return false;
         }
     }
 }

@@ -51,14 +51,16 @@ namespace StarterGame
             {
                 if (door.IsOpen)
                 {
-                    Notification notification = new Notification("PlayerEntersRoom");
+                    Notification notification = new Notification("FoundBag", this);
                     NotificationCenter.Instance.PostNotification(notification);
                     Room nextRoom = door.ConnectedRoom(CurrentRoom);
 
                     this._currentRoom = nextRoom;
 
-                    notification = new Notification("PlayerEnteredRoom");
+                    notification = new Notification("FoundBag", this);
                     NotificationCenter.Instance.PostNotification(notification);
+                    //notification = new Notification("PlayerEnteredRoom", this);
+                    //NotificationCenter.Instance.PostNotification(notification);
                     this.OutputMessage("\n" + this._currentRoom.Description());
                 }
                 else
@@ -100,6 +102,7 @@ namespace StarterGame
         public void Give(IItem item)
         {
             Bag.AddItem(item);
+            Bag.Weight = Bag.Weight + item.Weight;
         }
         //takes item from backpack
         public IItem Take(string itemName)
@@ -140,7 +143,7 @@ namespace StarterGame
                 //checks if the items weight is over the bag capacity
                 if ((item.Weight + Bag.WeightInBag()) >= Bag.Capacity)
                 {
-                    OutputMessage("Your inventory is full");
+                    OutputMessage("This is to heavy to pick up");
                     CurrentRoom.Drop(item);
                 }
                 else
@@ -148,19 +151,19 @@ namespace StarterGame
                     //checks if the item is too large to be picked up
                     if(item.Volume > Bag.VolumeCapacity)
                     {
-                        Give(item);
-                        OutputMessage("\n" + itemName + " has been picked up");
+                        OutputMessage("This item is to big to carry");
+                        CurrentRoom.Drop(item);
                     }
                     else
                     {
-                        OutputMessage("This item is to big to carry");
-                        CurrentRoom.Drop(item);
+                        Give(item);
+                        OutputMessage("\n" + itemName + " has been picked up");
                     }
                 }
             }
             else
             {
-                Bag.AddItem(item);
+                CurrentRoom.Drop(item);
                 OutputMessage("\nThe item named " + itemName + " is not in the room.");
             }
         }

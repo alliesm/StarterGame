@@ -32,6 +32,7 @@ namespace StarterGame
                 }
                 grabItem = grabItem.TrimEnd();
                 player.PickUp(grabItem);
+                player.OutputMessage(player.CurrentRoom.Description());
             }
             return false;
         }

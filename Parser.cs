@@ -72,6 +72,7 @@ namespace StarterGame
             return _commands.Peek().Description();
         }
 
+        //removes bag commands
         public void ShowCommands(Notification notification)
         {
             _commands.Pop();
