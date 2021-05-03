@@ -24,10 +24,11 @@ namespace StarterGame
             }
         }
 
-        public Player(Room room)
+        public Player(Room room, int currentHitPoints, int maximumHitPoints, int gold) : base(currentHitPoints, maximumHitPoints)
         {
             _currentRoom = room;
             _inventory = new ItemContainer("inventory", 0f, 0, 50, 0, 0, "your inventory is where all of your held items is stored");
+            Gold = gold;
         }
 
         
