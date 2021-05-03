@@ -5,12 +5,10 @@ using System.Linq;
 
 namespace StarterGame
 {
-    public class Player : LivingCreature
+    public class Player : ILivingCreature
     {
         private Room _currentRoom = null;
-
-        //private IItem _inventory = null;
-
+        //private IItem _inventory = null
         public Room CurrentRoom
         {
             get
@@ -22,6 +20,17 @@ namespace StarterGame
                 _currentRoom = value;
             }
         }
+        private Bag _bag;
+        public Bag Bag { get { return _bag; } set { _bag = value; } }
+
+        private int gold;
+        public int Gold { get { return gold; } set { gold = value; } }
+
+        private int _currentHitPoints;
+        public int CurrentHitPoints { get { return _currentHitPoints; } set { _currentHitPoints = value; } }
+
+        private int _maximumHitPoints;
+        public int MaximumHitPoints { get { return _maximumHitPoints; } set { _maximumHitPoints = value; } }
 
         private Bag _bag;
         public Bag Bag { get { return _bag; } set { _bag = value; } }
