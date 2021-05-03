@@ -63,8 +63,6 @@ namespace StarterGame
         public const int QUEST_ID_CLEAR_GARDEN = 1;
         public const int QUEST_ID_CLEAR_armory = 2;
 
-        private List<Room> roomList;
-
         private GameWorld()
         {
             _entrance = CreateWorld();
