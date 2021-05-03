@@ -10,11 +10,12 @@ namespace StarterGame
         private Room _currentRoom = null;
         private IItem _inventory = null;
         public List<PlayerQuest> Quests { get; set; }
-        
-        
-        
+        public Location CurrentLocation { get; set; }
 
-        public Room CurrentRoom
+
+
+
+    public Room CurrentRoom
         {
             get
             {
@@ -164,6 +165,8 @@ namespace StarterGame
             }
             return temp;
         }*/
+
+        
 
         public void Inspect(string itemName)
         {
