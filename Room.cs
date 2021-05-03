@@ -20,11 +20,15 @@ namespace StarterGame
             }
         }
 
+        private Dictionary<string, ILivingCreature> _roomNpcs;
+
+        public Dictionary<string, ILivingCreature> RoomNpcs { get { return _roomNpcs; } }
+
         private IItem _ground;
 
         public void Drop(IItem item)
         {
-            _ground.AddItem(item);
+            _ground.AddItem(item);            
         }
 
         public IItem Pickup(string itemName)
@@ -43,6 +47,7 @@ namespace StarterGame
             _ground = new ItemContainer("floor loot", 0f, 0, 0, 0, 0, "items currently on the ground around you");
             exits = new Dictionary<string, Door>();
             this.Tag = tag;
+            _roomNpcs = new Dictionary<string, ILivingCreature>();
         }
 
         public void SetExit(string exitName, Door door)
@@ -74,9 +79,46 @@ namespace StarterGame
             return _ground.Description;
         }
 
+        public void AddNpc(ILivingCreature npc)
+        {
+            RoomNpcs[npc.Name] = npc;
+        }
+
+        public void RemoveNpc(ILivingCreature npc)
+        {
+            RoomNpcs.Remove(npc.Name);
+        }
+
+        public string DisplayNpc()
+        {
+            string list = "";
+            Dictionary<string, ILivingCreature>.KeyCollection keys = _roomNpcs.Keys;
+            int count = 0;
+            foreach (string npc in keys)
+            {
+                count++;
+                if (keys.Count == count)
+                {
+                    list += npc;
+                }
+                else
+                {
+                    list += npc + ", ";
+                }
+            }
+            return list;
+        }
+
+        public ILivingCreature GetNpc(string name)
+        {
+            ILivingCreature npc = null;
+            RoomNpcs.TryGetValue(name, out npc);
+            return npc;
+        }
+
         public string Description()
         {
-            return "\nYou entered " + this.Tag + ".\n*** " + this.GetExits() + "\n^^^" + GetItems();
+            return "\nYou entered " + this.Tag + ".\n*** " + this.GetExits() + "\n --- NPCs: " + DisplayNpc()  + "\n^^^" + GetItems();
         }
     }
 }

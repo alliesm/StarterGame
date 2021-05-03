@@ -110,6 +110,7 @@ namespace StarterGame
 
             //triggers notification
             Entrance = outside;
+            MainCorridor = mainCorridor;
             Teleport = infirmary;
             Trap = armory;
 
@@ -118,6 +119,8 @@ namespace StarterGame
             IItem decorator = new Item("blade", 9.7f, 4, 3, 2, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
+
+            tradingRoom.AddNpc(new BlackSmith(tradingRoom));
 
             IItem flagpole = new Item("flag pole", 0f, 60, 0, 0, "a flag flying the banner of an unfamiliar group");
             mainCorridor.Drop(flagpole);

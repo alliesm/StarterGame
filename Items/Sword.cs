@@ -1,7 +1,7 @@
 ﻿using System;
 namespace StarterGame
 {
-    public class wand : IItem, IWeapon
+    public class Sword : IItem, IWeapon
     {
         public string Name { get; set; }
         private float _weight;
@@ -65,24 +65,24 @@ namespace StarterGame
 
         public bool IsContainer { get { return false; } }
 
-        public wand() : this("wand") { }
+        public Sword() : this("sword") { }
 
-        public wand(string name) : this(name, 4.0f) { }
+        public Sword(string name) : this(name, 6.0f) { }
 
-        public wand(string name, float weight) : this(name, weight, 3.0) { }
+        public Sword(string name, float weight) : this(name, weight, 7.0) { }
 
-        public wand(string name, float weight, double volume) : this(name, weight, volume, 30) { }
+        public Sword(string name, float weight, double volume) : this(name, weight, volume, 10) { }
 
-        public wand(string name, float weight, double volume, int buyPrice) : this(name, weight, volume, buyPrice, 50) { }
+        public Sword(string name, float weight, double volume, int buyPrice) : this(name, weight, volume, buyPrice, 20) { }
 
-        public wand(string name, float weight, double volume, int buyPrice, int sellPrice) : this(name, weight, volume, buyPrice, sellPrice, 30) { }
+        public Sword(string name, float weight, double volume, int buyPrice, int sellPrice) : this(name, weight, volume, buyPrice, sellPrice, 10) { }
 
-        public wand(string name, float weight, double volume, int buyPrice, int sellPrice, int minimumDamage) : this(name, weight, volume, buyPrice, sellPrice, minimumDamage, 50) { }
+        public Sword(string name, float weight, double volume, int buyPrice, int sellPrice, int minimumDamage) : this(name, weight, volume, buyPrice, sellPrice, minimumDamage, 20) { }
 
-        public wand(string name, float weight, double volume, int buyPrice, int sellPrice, int minimumDamage, int maximumDamage) : this(name, weight, volume, buyPrice, sellPrice, minimumDamage, maximumDamage, "a mage's wand, a truly strong item") { }
+        public Sword(string name, float weight, double volume, int buyPrice, int sellPrice, int minimumDamage, int maximumDamage) : this(name, weight, volume, buyPrice, sellPrice, minimumDamage, maximumDamage, "a knights sword") { }
 
         //Designated constructor
-        public wand(String name, float weight, double volume, int buyPrice, int sellPrice, int minumumDamage, int maximumDamage, string description)
+        public Sword(String name, float weight, double volume, int buyPrice, int sellPrice, int minumumDamage, int maximumDamage, string description)
         {
             Name = name;
             Weight = weight;

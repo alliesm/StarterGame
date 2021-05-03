@@ -20,32 +20,23 @@ namespace StarterGame
                 _currentRoom = value;
             }
         }
+
+        public string Name { get; set; }
         private Bag _bag;
         public Bag Bag { get { return _bag; } set { _bag = value; } }
-
-        private int gold;
-        public int Gold { get { return gold; } set { gold = value; } }
 
         private int _currentHitPoints;
         public int CurrentHitPoints { get { return _currentHitPoints; } set { _currentHitPoints = value; } }
 
         private int _maximumHitPoints;
         public int MaximumHitPoints { get { return _maximumHitPoints; } set { _maximumHitPoints = value; } }
-
-        private Bag _bag;
-        public Bag Bag { get { return _bag; } set { _bag = value; } }
 
         private int _money;
         public int Money { get { return _money; } set { _money = value; } }
 
-        private int _currentHitPoints;
-        public int CurrentHitPoints { get { return _currentHitPoints; } set { _currentHitPoints = value; } }
-
-        private int _maximumHitPoints;
-        public int MaximumHitPoints { get { return _maximumHitPoints; } set { _maximumHitPoints = value; } }
-
         public Player(Room room)
         {
+            Name = null;
             _currentRoom = room;
             _bag = null;
             _money = 10;

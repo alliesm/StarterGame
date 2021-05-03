@@ -12,7 +12,6 @@ namespace StarterGame
         int BuyPrice { get; set; }
         int SellPrice { get; set; }
         string Description { get; }
-        //HashSet<ItemType> ItemTypes { get; }
         void AddDecorator(IItem decorator);
         bool IsContainer { get; }
         void AddItem(IItem item);

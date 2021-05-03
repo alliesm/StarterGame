@@ -20,6 +20,7 @@ namespace StarterGame
             _commands = new Stack<CommandWords>();
             _commands.Push(newCommands);
             NotificationCenter.Instance.AddObserver("ShowBagCommands", ShowBagCommands);
+            NotificationCenter.Instance.AddObserver("PushSmithCommands", PushSmithCommands);
             NotificationCenter.Instance.AddObserver("ShowCommands", ShowCommands);
         }
 
@@ -81,6 +82,11 @@ namespace StarterGame
         public void ShowBagCommands(Notification notification)
         {
             _commands.Push(new CommandWords(CommandWords.BagCommands));
+        }
+
+        public void PushSmithCommands(Notification notification)
+        {
+            _commands.Push(new CommandWords(CommandWords.SmithCommands));
         }
     }
 }

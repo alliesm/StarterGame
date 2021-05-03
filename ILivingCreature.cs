@@ -4,8 +4,9 @@ using System.Text;
 
 namespace StarterGame
 {
-    public interface LivingCreature
+    public interface ILivingCreature
     {
+        string Name { get; }
         int CurrentHitPoints { get; set; }
         int MaximumHitPoints { get; set; }
         /*public LivingCreature(int currentHitPoints, int maximumHitPoints)

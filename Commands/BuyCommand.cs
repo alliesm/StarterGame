@@ -25,23 +25,26 @@ namespace StarterGame
                 itemName = itemName.TrimEnd();
             }
 
-            /*if(character != null)
+            BlackSmith character = (BlackSmith)player.CurrentRoom.GetNpc("blacksmith");
+            if(character != null)
             {
                 IItem item = null;
-                character.Inventory.TryGetValue(itemName, out item);
+                character.Inventory.TryGetValue(item.Name, out item);
                 if(item != null)
                 {
                     if(player.Bag.SpaceInBag(item) && player.EnoughMoney(item.BuyPrice))
                     {
                         player.BuyItem(item.BuyPrice);
                         player.Bag.AddItem(item);
+                        NotificationCenter.Instance.PostNotification(new Notification("BuyMessage"));
                     }
                 }
             }
             else
             {
                 player.OutputMessage("\nWhat would you like to buy?");
-            }*/
+                NotificationCenter.Instance.PostNotification(new Notification("ViewGoods", this));
+            }
             return false;
         }
     }

@@ -15,6 +15,7 @@ namespace StarterGame
         public bool Execute(Player player)
         {
             NotificationCenter.Instance.PostNotification(new Notification("ShowCommands"));
+            player.OutputMessage("\n" + player.CurrentRoom.Description());
             return false;
         }
     }
