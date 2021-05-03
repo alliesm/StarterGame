@@ -6,7 +6,8 @@ namespace StarterGame
 {
     public class Parser
     {
-        private CommandWords _commands;
+        //private CommandWords _commands;
+        private Stack<CommandWords> _commands;
 
         public Parser() : this(new CommandWords())
         {
@@ -15,7 +16,12 @@ namespace StarterGame
 
         public Parser(CommandWords newCommands)
         {
-            _commands = newCommands;
+            //_commands = newCommands;
+            _commands = new Stack<CommandWords>();
+            _commands.Push(newCommands);
+            NotificationCenter.Instance.AddObserver("ShowBagCommands", ShowBagCommands);
+            NotificationCenter.Instance.AddObserver("PushSmithCommands", PushSmithCommands);
+            NotificationCenter.Instance.AddObserver("ShowCommands", ShowCommands);
         }
 
         public Command ParseCommand(string commandString)
@@ -53,7 +59,7 @@ namespace StarterGame
             while (newWords.Count > 0 && command == null)
             {
                 commandName += newWords.Dequeue().Trim();
-                command = _commands.Get(commandName);
+                command = _commands.Peek().Get(commandName);
                 if (command == null)
                 {
                     commandName += " ";
@@ -64,7 +70,23 @@ namespace StarterGame
 
         public string Description()
         {
-            return _commands.Description();
+            return _commands.Peek().Description();
+        }
+
+        //removes bag commands
+        public void ShowCommands(Notification notification)
+        {
+            _commands.Pop();
+        }
+
+        public void ShowBagCommands(Notification notification)
+        {
+            _commands.Push(new CommandWords(CommandWords.BagCommands));
+        }
+
+        public void PushSmithCommands(Notification notification)
+        {
+            _commands.Push(new CommandWords(CommandWords.SmithCommands));
         }
     }
 }

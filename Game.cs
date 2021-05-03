@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -15,10 +15,10 @@ namespace StarterGame
             playing = false;
             parser = new Parser(new CommandWords());
             player = new Player(GameWorld.Instance.Entrance);
+
             player.CurrentHitPoints = 10;
             player.MaximumHitPoints = 10;
-            player.Gold = 20;
-            
+
         }
                 
         /**

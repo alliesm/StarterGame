@@ -1,25 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace StarterGame
 {
     public class InventoryCommand : Command
     {
-
-        public InventoryCommand() : base()
+        public InventoryCommand()
         {
-            this.Name = "inventory";
+            this.Name = "view goods";
         }
 
         override
         public bool Execute(Player player)
         {
-            if (QWords.Count > 0)
-            {
-                player.OutputMessage("\nI cannot Inventory " + QWords);
-            }
-            else
-            {
-                player.Inventory();
-            }
+            NotificationCenter.Instance.PostNotification(new Notification("ViewGoods"));
             return false;
         }
     }

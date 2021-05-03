@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,7 +19,8 @@ namespace StarterGame
             ID = id;
             Name = name;
             MaximumDamage = maximumDamage;
-            
+            MaximumHitPoints = maximumHitPoints;
+            CurrentHitPoints = currentHitPoints;
             RewardGold = rewardGold;
         }
     }
