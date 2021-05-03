@@ -9,7 +9,10 @@ namespace StarterGame
     {
         private Room _currentRoom = null;
         //private IItem _inventory = null
-        public Room CurrentRoom
+        public List<PlayerQuest> Quests { get; set; }
+        public Location CurrentLocation { get; set; }
+
+    public Room CurrentRoom
         {
             get
             {
@@ -41,6 +44,7 @@ namespace StarterGame
             _bag = null;
             _money = 10;
             //_inventory = new ItemContainer("inventory", 0f, 0, 50, 0, 0, "your inventory is where all of your held items is stored");
+            Quests = new List<PlayerQuest>();
         }
 
         //displays a message to the player
@@ -174,7 +178,6 @@ namespace StarterGame
             }
         }
 
-        //inspects an item and displays its properties
         public void Inspect(string itemName)
         {
             IItem item = CurrentRoom.Pickup(itemName);
