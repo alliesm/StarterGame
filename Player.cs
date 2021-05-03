@@ -9,6 +9,7 @@ namespace StarterGame
     {
         private Room _currentRoom = null;
         private IItem _inventory = null;
+        public List<PlayerQuest> Quests { get; set; }
         
         
         
@@ -36,10 +37,13 @@ namespace StarterGame
         private int _maximumHitPoints;
         public int MaximumHitPoints { get { return _maximumHitPoints; } set { _maximumHitPoints = value; } }
 
+
+
         public Player(Room room)
         {
             _currentRoom = room;
             _inventory = new ItemContainer("inventory", 0f, 0, 50, 0, 0, "your inventory is where all of your held items is stored");
+            Quests = new List<PlayerQuest>();
             
         }
 
