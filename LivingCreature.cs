@@ -4,14 +4,10 @@ using System.Text;
 
 namespace StarterGame
 {
-    public class LivingCreature
+    public interface ILivingCreature
     {
-        public int CurrentHitPoints { get; set; }
-        public int MaximumHitPoints { get; set; }
-        public LivingCreature(int currentHitPoints, int maximumHitPoints)
-        {
-            CurrentHitPoints = currentHitPoints;
-            MaximumHitPoints = maximumHitPoints;
-        }
+       int CurrentHitPoints { get; set; }
+       int MaximumHitPoints { get; set; }
+        
     }
 }
