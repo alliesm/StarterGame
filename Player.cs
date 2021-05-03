@@ -8,12 +8,7 @@ namespace StarterGame
     public class Player : LivingCreature
     {
         private Room _currentRoom = null;
-<<<<<<< HEAD
-=======
 
-        
-        public int Gold { get; set; }
->>>>>>> BrandonChanges
         //private IItem _inventory = null;
 
         public Room CurrentRoom
@@ -34,6 +29,12 @@ namespace StarterGame
         private int _money;
         public int Money { get { return _money; } set { _money = value; } }
 
+        private int _currentHitPoints;
+        public int CurrentHitPoints { get { return _currentHitPoints; } set { _currentHitPoints = value; } }
+
+        private int _maximumHitPoints;
+        public int MaximumHitPoints { get { return _maximumHitPoints; } set { _maximumHitPoints = value; } }
+
         public Player(Room room)
         {
             _currentRoom = room;
@@ -47,14 +48,7 @@ namespace StarterGame
         {
             Console.WriteLine(message);
         }
-
-        //displays a message to the player
-        public void OutputMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        
+                
 
         //Allows the player to move into another room
         public void WaltTo(string direction)
@@ -65,16 +59,14 @@ namespace StarterGame
             {
                 if (door.IsOpen)
                 {
-                    Notification notification = new Notification("FoundBag", this);
-                    NotificationCenter.Instance.PostNotification(notification);
                     Room nextRoom = door.ConnectedRoom(CurrentRoom);
 
                     this._currentRoom = nextRoom;
 
-                    notification = new Notification("FoundBag", this);
+                    Notification notification = new Notification("FoundBag", this);
                     NotificationCenter.Instance.PostNotification(notification);
-                    //notification = new Notification("PlayerEnteredRoom", this);
-                    //NotificationCenter.Instance.PostNotification(notification);
+                    notification = new Notification("PlayerEnteredInfirmary", this);
+                    NotificationCenter.Instance.PostNotification(notification);
                     this.OutputMessage("\n" + this._currentRoom.Description());
                 }
                 else

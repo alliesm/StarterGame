@@ -56,7 +56,7 @@ namespace StarterGame
             //Notifications go here
             NotificationCenter.Instance.AddObserver("FoundKey", FoundKey);
             NotificationCenter.Instance.AddObserver("FoundBag", FoundBag);
-            NotificationCenter.Instance.AddObserver("PlayerEnteredRoom", PlayerEnteredRoom);
+            NotificationCenter.Instance.AddObserver("PlayerEnteredInfirmary", PlayerEnteredInfirmary);
         }
 
         public Room CreateWorld()
@@ -113,13 +113,6 @@ namespace StarterGame
             Teleport = infirmary;
             Trap = armory;
 
-            //triggers notification
-            Entrance = outside;
-
-            Trap = armory;
-            MainCorridor = mainCorridor;
-
-
             //Puts items in world
             IItem sword = new Item("sword", 5.3f, 3.2, 2, 1, "this is the hilt a broken knight's longsword");
             IItem decorator = new Item("blade", 9.7f, 4, 3, 2, "the blade to the broken sword");
@@ -142,10 +135,8 @@ namespace StarterGame
             return outside;
         }
 
-<<<<<<< HEAD
-
-        //send player to the entrance when they enter the infirmary
-        public void PlayerEnteredRoom(Notification notification)
+        //send player to the armory when they enter the infirmary
+        public void PlayerEnteredInfirmary(Notification notification)
         {
             Player player = (Player)notification.Object;
             if (player.CurrentRoom == Teleport)
@@ -153,21 +144,9 @@ namespace StarterGame
                 player.CurrentRoom = Trap;
                 Console.WriteLine("****");
                 Console.WriteLine("You have been transported to the armory");
-=======
-        //send player to the armory when they enter the infirmary
-        public void PlayerEnteredRoom(Notification notification)
-        {
-            Player player = (Player)notification.Object;
-            if (player.CurrentRoom == Trap)
-            {
-                player.CurrentRoom = Trap;
-                Console.WriteLine("****");
-                Console.WriteLine("You have been transported back to the entrance");
->>>>>>> BrandonChanges
                 Console.WriteLine("****");
             }
         }
-
 
         //posts a notification to tell the player that they can go to the final boss door
         public void FoundKey(Notification notification)
