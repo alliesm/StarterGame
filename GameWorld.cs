@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -108,10 +108,14 @@ namespace StarterGame
             door = Door.CreateDoor(garden, finalRoom, "garden", "boss lair");
             door.close();
 
-
             //triggers notification
             Entrance = outside;
             Teleport = infirmary;
+            Trap = armory;
+
+            //triggers notification
+            Entrance = outside;
+
             Trap = armory;
             MainCorridor = mainCorridor;
 
@@ -138,6 +142,7 @@ namespace StarterGame
             return outside;
         }
 
+<<<<<<< HEAD
 
         //send player to the entrance when they enter the infirmary
         public void PlayerEnteredRoom(Notification notification)
@@ -147,7 +152,18 @@ namespace StarterGame
             {
                 player.CurrentRoom = Trap;
                 Console.WriteLine("****");
-                Console.WriteLine("You have been transported to a trap room");
+                Console.WriteLine("You have been transported to the armory");
+=======
+        //send player to the armory when they enter the infirmary
+        public void PlayerEnteredRoom(Notification notification)
+        {
+            Player player = (Player)notification.Object;
+            if (player.CurrentRoom == Trap)
+            {
+                player.CurrentRoom = Trap;
+                Console.WriteLine("****");
+                Console.WriteLine("You have been transported back to the entrance");
+>>>>>>> BrandonChanges
                 Console.WriteLine("****");
             }
         }

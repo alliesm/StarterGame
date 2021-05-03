@@ -1,13 +1,19 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 
 namespace StarterGame
 {
-    public class Player
+    public class Player : LivingCreature
     {
         private Room _currentRoom = null;
+<<<<<<< HEAD
+=======
+
+        
+        public int Gold { get; set; }
+>>>>>>> BrandonChanges
         //private IItem _inventory = null;
 
         public Room CurrentRoom
@@ -41,6 +47,14 @@ namespace StarterGame
         {
             Console.WriteLine(message);
         }
+
+        //displays a message to the player
+        public void OutputMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        
 
         //Allows the player to move into another room
         public void WaltTo(string direction)
