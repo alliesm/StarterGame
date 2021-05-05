@@ -14,7 +14,7 @@ namespace StarterGame
 
         public override bool Execute(Player player)
         {
-            string notify = "Talk";
+            string notify = "Talk_";
             string name = "";
             if (this.QWords.Count == 0)
             {

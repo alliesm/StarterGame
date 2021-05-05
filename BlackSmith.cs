@@ -29,13 +29,13 @@ namespace StarterGame
             _inventory = new Dictionary<string, IItem>();
             foreach (IItem item in TraderGoods) { _inventory[item.Name] = item; }
 
-            NotificationCenter.Instance.AddObserver("TalkSmith", TalkSmith);
+            NotificationCenter.Instance.AddObserver("Talk_blacksmith", Talk_blacksmith);
             NotificationCenter.Instance.AddObserver("LeaveSmith", LeaveSmith);
             NotificationCenter.Instance.AddObserver("ViewGoods", ViewGoods);
             NotificationCenter.Instance.AddObserver("BuyMessage", BuyMessage);
         }
 
-        private void TalkSmith(Notification notification)
+        private void Talk_blacksmith(Notification notification)
         {
             Player player = (Player)notification.Object;
             NotificationCenter.Instance.PostNotification(new Notification("PushSmithCommands", this));

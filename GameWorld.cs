@@ -67,7 +67,6 @@ namespace StarterGame
         {
             _entrance = CreateWorld();
 
-
             //Notifications go here
             NotificationCenter.Instance.AddObserver("FoundKey", FoundKey);
             NotificationCenter.Instance.AddObserver("FoundBag", FoundBag);
@@ -183,9 +182,9 @@ namespace StarterGame
             IItem flagpole = new Item("flag pole", 0f, 60, 0, 0, "a flag flying the banner of an unfamiliar group");
             mainCorridor.Drop(flagpole);
 
-            IItem axe = new Item("axe", 6.1f, 6, 20, 10, "an axe");
-            IItem shield = new Item("shield", 15.3f, 8, 15, 20, "a shield for blocking");
-            IItem wand = new Item("wand", 6.4f, 4, 50, 50, "a powerful mage's wand");
+            //IItem axe = new Item("axe", 6.1f, 6, 20, 10, "an axe");
+            //IItem shield = new Item("shield", 15.3f, 8, 15, 20, "a shield for blocking");
+            //IItem wand = new Item("wand", 6.4f, 4, 50, 50, "a powerful mage's wand");
 
             IItem itemContainer = new ItemContainer("lockbox", 4f, 6, 5, 2, 3, "holds the key to the boss door");
             IItem itemInContainer = new Item("key", 0.01f, 0.01, 0, 0, "the key to the boss door");
