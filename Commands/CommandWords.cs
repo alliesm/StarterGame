@@ -11,7 +11,7 @@ namespace StarterGame
          new PickupCommand(), new BagCommand(), new DropCommand(), new OpenCommand()};
 
         //this array uses the stack function for when a player is in a certain scenario
-        public static Command[] BagCommands = { new CloseBagCommand()};
+        public static Command[] BagCommands = { new CloseBagCommand(), new InspectCommand(), new DropCommand()};
 
         public static Command[] SmithCommands = { new InventoryCommand(), new BuyCommand(), new SellCommand(),
             new BagCommand(), new LeaveCommand() };

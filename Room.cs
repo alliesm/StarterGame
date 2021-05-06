@@ -118,7 +118,7 @@ namespace StarterGame
 
         public string Description()
         {
-            return "\nYou entered " + this.Tag + ".\n*** " + this.GetExits() + "\n --- NPCs: " + DisplayNpc()  + "\n^^^" + GetItems();
+            return "\nYou entered " + this.Tag + ".\n\n*** " + this.GetExits() + "\n --- NPCs: " + DisplayNpc()  + "\n" + GetItems();
         }
     }
 }

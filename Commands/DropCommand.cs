@@ -28,6 +28,7 @@ namespace StarterGame
                 }
                 dropItem = dropItem.TrimEnd();
                 player.Take(dropItem);
+                player.OutputMessage(player.CurrentRoom.Description());
             }
             return false;
         }
