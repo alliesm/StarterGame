@@ -51,6 +51,13 @@ namespace StarterGame
             get { return _mainCorridor; }
             private set { _mainCorridor = value; }
         }
+
+        private Room _exit;
+        public Room Exit
+        {
+            get { return _exit; }
+            private set { _exit = value; }
+        }
         
         public static readonly List<Monster> Monsters = new List<Monster>();
         public static readonly List<Quest> Quests = new List<Quest>();
@@ -71,6 +78,7 @@ namespace StarterGame
             NotificationCenter.Instance.AddObserver("FoundKey", FoundKey);
             NotificationCenter.Instance.AddObserver("FoundBag", FoundBag);
             NotificationCenter.Instance.AddObserver("PlayerEnteredInfirmary", PlayerEnteredInfirmary);
+            NotificationCenter.Instance.AddObserver("PlayerWin", PlayerWin);
         }
         private static void PopulateMonsters()
         {
@@ -170,6 +178,7 @@ namespace StarterGame
             MainCorridor = mainCorridor;
             Teleport = infirmary;
             Trap = armory;
+            Exit = finalRoom;
 
             //Puts items in world
             IItem sword = new Item("sword", 5.3f, 3.2, 3, 5, "this is the hilt a broken knight's longsword");
@@ -239,6 +248,17 @@ namespace StarterGame
                 Console.WriteLine("***");
                 player.Bag = new Bag();
                 Console.WriteLine(player.Bag.Description);
+            }
+        }
+
+        public void PlayerWin(Notification notification)
+        {
+            Player player = (Player)notification.Object;
+            if (player.CurrentRoom == Exit)
+            {
+                Console.WriteLine("****");
+                Console.WriteLine("You enter the boss room and fight a grueling fight against the terror in the cave, and save the princess. You then leave the dungeon and collect your reward.");
+                Console.WriteLine("****");                
             }
         }
     }

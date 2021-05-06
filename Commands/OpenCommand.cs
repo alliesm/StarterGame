@@ -27,6 +27,14 @@ namespace StarterGame
                 }
                 lockedDoor = lockedDoor.TrimEnd();
                 player.Open(lockedDoor);
+
+                if(lockedDoor == "boss lair")
+                {
+                    player.OutputMessage("****");
+                    player.OutputMessage("You enter the boss room and fight a grueling fight against the terror in the cave, and save the princess. You then leave the dungeon and collect your reward.");
+                    player.OutputMessage("****");
+                    return true;
+                }
             }
             return false;
         }

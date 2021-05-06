@@ -72,6 +72,9 @@ namespace StarterGame
 
                     notification = new Notification("PlayerEnteredInfirmary", this);
                     NotificationCenter.Instance.PostNotification(notification);
+
+                    notification = new Notification("PlayerWin", this);
+                    NotificationCenter.Instance.PostNotification(notification);
                     this.OutputMessage("\n" + this._currentRoom.Description());
                 }
                 else
