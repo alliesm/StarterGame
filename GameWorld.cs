@@ -186,10 +186,10 @@ namespace StarterGame
             //IItem shield = new Item("shield", 15.3f, 8, 15, 20, "a shield for blocking");
             //IItem wand = new Item("wand", 6.4f, 4, 50, 50, "a powerful mage's wand");
 
-            IItem itemContainer = new ItemContainer("lockbox", 4f, 6, 5, 2, 3, "holds the key to the boss door");
-            IItem itemInContainer = new Item("key", 0.01f, 0.01, 0, 0, "the key to the boss door");
-            itemContainer.AddItem(itemInContainer);
-            armory.Drop(itemContainer);
+            //IItem itemContainer = new ItemContainer("lockbox", 4f, 6, 5, 2, 3, "holds the key to the boss door");
+            IItem key = new Item("key", 0.01f, 0.01, 0, 0, "the key to the boss door");
+            //itemContainer.AddItem(itemInContainer);
+            armory.Drop(key);
 
 
             return outside;
@@ -215,8 +215,10 @@ namespace StarterGame
 
             if (player.Bag.CheckForItem("key") == true)
             {
+                Console.WriteLine("****");
                 Console.WriteLine("\nYou found the key to the boss door. Make sure you're ready for this fight"
                     + ", then head to the boss lair and open the door");
+                Console.WriteLine("****");
             }
         }
 

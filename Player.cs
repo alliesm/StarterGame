@@ -69,6 +69,7 @@ namespace StarterGame
 
                     Notification notification = new Notification("FoundBag", this);
                     NotificationCenter.Instance.PostNotification(notification);
+
                     notification = new Notification("PlayerEnteredInfirmary", this);
                     NotificationCenter.Instance.PostNotification(notification);
                     this.OutputMessage("\n" + this._currentRoom.Description());
@@ -127,7 +128,7 @@ namespace StarterGame
             this.OutputMessage("\n" + this._currentRoom.Description());
         }
 
-              
+
 
         //takes item out of inventory
         /*public void Drop(string itemName)
@@ -149,7 +150,7 @@ namespace StarterGame
         {
             IItem item = CurrentRoom.Pickup(itemName);
             if (item != null)
-            {
+            { 
                 //checks if the items weight is over the bag capacity
                 if ((item.Weight + Bag.WeightInBag()) >= Bag.Capacity)
                 {
@@ -168,6 +169,8 @@ namespace StarterGame
                     {
                         Give(item);
                         OutputMessage("\n" + itemName + " has been picked up");
+                        Notification notification = new Notification("FoundKey", this);
+                        NotificationCenter.Instance.PostNotification(notification);
                     }
                 }
             }
