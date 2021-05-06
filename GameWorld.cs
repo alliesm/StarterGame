@@ -78,7 +78,7 @@ namespace StarterGame
             NotificationCenter.Instance.AddObserver("FoundKey", FoundKey);
             NotificationCenter.Instance.AddObserver("FoundBag", FoundBag);
             NotificationCenter.Instance.AddObserver("PlayerEnteredInfirmary", PlayerEnteredInfirmary);
-            NotificationCenter.Instance.AddObserver("PlayerWin", PlayerWin);
+            //NotificationCenter.Instance.AddObserver("PlayerWin", PlayerWin);
         }
         private static void PopulateMonsters()
         {
@@ -251,7 +251,7 @@ namespace StarterGame
             }
         }
 
-        public void PlayerWin(Notification notification)
+        /*public void PlayerWin(Notification notification)
         {
             Player player = (Player)notification.Object;
             if (player.CurrentRoom == Exit)
@@ -260,6 +260,6 @@ namespace StarterGame
                 Console.WriteLine("You enter the boss room and fight a grueling fight against the terror in the cave, and save the princess. You then leave the dungeon and collect your reward.");
                 Console.WriteLine("****");                
             }
-        }
+        }*/
     }
 }
