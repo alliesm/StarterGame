@@ -39,8 +39,8 @@ namespace StarterGame
         {
             Player player = (Player)notification.Object;
             NotificationCenter.Instance.PostNotification(new Notification("PushSmithCommands", this));
-            player.OutputMessage("\nPlayer Money: " + player.Money);
-            Console.WriteLine("\nWould you like to: \nBuy Items or sell them?");
+            player.OutputMessage("\nCurrent Player Money: " + player.Money);
+            Console.WriteLine("\nWould you like to: \nBuy Items \nView Goods \nor \nSell Items?");
         }
 
         public void LeaveSmith(Notification notification)
@@ -56,7 +56,7 @@ namespace StarterGame
             {
                 itemDisplay += item.Name + ": " + item.BuyPrice + " | " + item.SellPrice + "\n";
             }
-            Console.WriteLine("/nItem Name: Buy Value | Sell Value");
+            Console.WriteLine("\nItem Name: Buy Value | Sell Value");
             Console.WriteLine("_____________________________________________________");
             Console.WriteLine(itemDisplay);
         }

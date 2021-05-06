@@ -23,20 +23,25 @@ namespace StarterGame
                     itemName += QWords.Dequeue() + " ";
                 }
                 itemName = itemName.TrimEnd();
-            }
 
-            BlackSmith character = (BlackSmith)player.CurrentRoom.GetNpc("blacksmith");
-            if(character != null)
-            {
-                IItem item = null;
-                character.Inventory.TryGetValue(item.Name, out item);
-                if(item != null)
+                BlackSmith character = (BlackSmith)player.CurrentRoom.GetNpc("blacksmith");
+                if (character != null)
                 {
-                    if(player.Bag.SpaceInBag(item) && player.EnoughMoney(item.BuyPrice))
+                    IItem item = null;
+                    character.Inventory.TryGetValue(itemName, out item);
+                    if (item != null)
                     {
-                        player.BuyItem(item.BuyPrice);
-                        player.Bag.AddItem(item);
-                        NotificationCenter.Instance.PostNotification(new Notification("BuyMessage"));
+                        if (player.Bag.SpaceInBag(item) && player.EnoughMoney(item.BuyPrice))
+                        {
+                            player.BuyItem(item.BuyPrice);
+                            player.Bag.AddItem(item);
+                            NotificationCenter.Instance.PostNotification(new Notification("BuyMessage"));
+                        }
+                    }
+                    else
+                    {
+                        player.OutputMessage("I ain't got that. Here is what do got.");
+                        NotificationCenter.Instance.PostNotification(new Notification("ViewGoods", this));
                     }
                 }
             }

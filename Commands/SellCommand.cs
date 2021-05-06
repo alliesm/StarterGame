@@ -36,7 +36,7 @@ namespace StarterGame
                 {
                     IItem item = player.Take(itemName);
                     player.GetMoney(item.SellPrice);
-                    player.OutputMessage("\nYou got " + item.SellPrice + "money");
+                    player.OutputMessage("\nYou recieved " + item.SellPrice + " money");
                 }
             }
             return false;

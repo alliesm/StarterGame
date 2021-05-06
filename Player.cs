@@ -200,7 +200,7 @@ namespace StarterGame
         //checks if the player has enough money to buy an item
         public bool EnoughMoney(float cost)
         {
-            if(Money > cost)
+            if(Money < cost)
             {
                 OutputMessage("\nThis costs to much");
                 return false;

@@ -172,8 +172,8 @@ namespace StarterGame
             Trap = armory;
 
             //Puts items in world
-            IItem sword = new Item("sword", 5.3f, 3.2, 2, 1, "this is the hilt a broken knight's longsword");
-            IItem decorator = new Item("blade", 9.7f, 4, 3, 2, "the blade to the broken sword");
+            IItem sword = new Item("sword", 5.3f, 3.2, 3, 5, "this is the hilt a broken knight's longsword");
+            IItem decorator = new Item("blade", 9.7f, 4, 5, 10, "the blade to the broken sword");
             sword.AddDecorator(decorator);
             mainCorridor.Drop(sword);
 
